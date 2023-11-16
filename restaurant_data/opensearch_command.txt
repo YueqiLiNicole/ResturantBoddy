@@ -1,0 +1,21 @@
+MASTER_NAME = master
+MASTER_PASSWORD = Eric;151105
+DOMAIN_ENDPOINT = https://search-photos-ypc2mfwdjhxbxyeewmd3v3zi6e.us-east-1.es.amazonaws.com
+JSON_FILENAME = opensearch_data.json
+
+Upload data to Elasticsearch:
+curl -XPOST -u "master:Eric;151105" https://search-players-p6joq5eqpxqlt7c22nklqyupg4.us-east-1.es.amazonaws.com/_bulk --data-binary @opensearch_data.json -H 'Content-Type: application/json'
+
+Create an ElasticSearch index:
+curl -X PUT -u "master:Eric;151105" https://search-photos-ypc2mfwdjhxbxyeewmd3v3zi6e.us-east-1.es.amazonaws.com/photos -H 'Content-Type: application/json'
+
+Get all ElasticSearch index:
+curl -XGET -u "master:Eric;151105" https://search-photos-ypc2mfwdjhxbxyeewmd3v3zi6e.us-east-1.es.amazonaws.com/_cat/indices?v
+
+curl -XPOST -u "master:Eric;151105" "https://search-photos-ypc2mfwdjhxbxyeewmd3v3zi6e.us-east-1.es.amazonaws.com/photos/_delete_by_query" -H 'Content-Type: application/json' -d'
+{
+  "query": {
+    "match_all": {}
+  }
+}
+'

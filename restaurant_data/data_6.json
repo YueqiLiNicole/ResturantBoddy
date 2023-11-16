@@ -1,0 +1,68 @@
+[
+    {
+        "id": "I7z828r-k_shx2JbqL2DeQ",
+        "name": "Little Myanmar",
+        "categories": [
+            "Burmese",
+            "Salad",
+            "Soup"
+        ],
+        "imageUrl": "https://s3-media4.fl.yelpcdn.com/bphoto/jp2nfClbjL_yt6Zqdzb7qw/o.jpg",
+        "price": "Unavailable",
+        "address": "150 E 2nd St New York, NY 10009",
+        "rating": "4.0",
+        "numberOfReviews": "86",
+        "reviews": {},
+        "phone": "(917) 475-1183",
+        "insertedAtTimestamp": "2023-11-15 16:14:50.543153"
+    },
+    {
+        "id": "o5ldGBWD4A9JYOxPCc7Jnw",
+        "name": "Salad House",
+        "categories": [
+            "Salad",
+            "Sandwiches",
+            "Juice Bars & Smoothies"
+        ],
+        "imageUrl": "https://s3-media3.fl.yelpcdn.com/bphoto/-F8blkg-9pwbq1nrt9xueA/o.jpg",
+        "price": "$$",
+        "address": "18 S Fullerton Ave Montclair, NJ 07042",
+        "rating": "4.0",
+        "numberOfReviews": "59",
+        "reviews": {},
+        "phone": "(973) 337-8438",
+        "insertedAtTimestamp": "2023-11-15 16:14:50.543166"
+    },
+    {
+        "id": "b3XJAx3ru9FxB5gIxPZogg",
+        "name": "3 Guys Sushi",
+        "categories": [
+            "Japanese",
+            "Thai",
+            "Sushi Bars"
+        ],
+        "imageUrl": "https://s3-media1.fl.yelpcdn.com/bphoto/L8zae3e4RbIZ_DxWHRnZBQ/o.jpg",
+        "price": "$$",
+        "address": "530 Forest Ave Staten Island, NY 10310",
+        "rating": "4.0",
+        "numberOfReviews": "79",
+        "reviews": {},
+        "phone": "(718) 447-0088",
+        "insertedAtTimestamp": "2023-11-15 16:14:50.543177"
+    },
+    {
+        "id": "PVQs9T2LVXZbQ80J15MIow",
+        "name": "CookUnity",
+        "categories": [
+            "Food Delivery Services"
+        ],
+        "imageUrl": "https://s3-media3.fl.yelpcdn.com/bphoto/G6_yS7H4Wx4pNxyXFd9I_A/o.jpg",
+        "price": "$$",
+        "address": "New York, NY 10019",
+        "rating": "4.0",
+        "numberOfReviews": "682",
+        "reviews": {},
+        "phone": "",
+        "insertedAtTimestamp": "2023-11-15 16:14:50.543189"
+    }
+]
