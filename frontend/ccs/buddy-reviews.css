@@ -1,0 +1,65 @@
+/* screen - buddy-reviews */
+
+.buddy-reviews {
+  align-items: flex-start;
+  background-color: #00000040;
+  display: flex;
+  height: 98px;
+  justify-content: center;
+  min-width: 1148px;
+}
+
+.buddy-reviews .overlap-group {
+  height: 106px;
+  position: relative;
+  width: 1156px;
+}
+
+.buddy-reviews .rectangle-7 {
+  cursor: pointer;
+  height: 106px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 1156px;
+}
+
+.buddy-reviews .date {
+  color: var(--black);
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-s);
+  font-weight: 400;
+  left: 912px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: right;
+  top: 22px;
+  width: 213px;
+}
+
+.buddy-reviews .name {
+  color: var(--black);
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-s);
+  font-weight: 400;
+  left: 809px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 22px;
+  width: 103px;
+}
+
+.buddy-reviews .came-late {
+  color: var(--black);
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-s);
+  font-weight: 600;
+  left: 46px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 22px;
+  width: 583px;
+}

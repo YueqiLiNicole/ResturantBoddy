@@ -1,0 +1,160 @@
+/* screen - login */
+
+.login {
+  align-items: flex-start;
+  background-color: var(--white);
+  display: flex;
+  gap: 80px;
+  height: 1024px;
+  min-width: 1440px;
+  overflow-x: hidden;
+}
+
+.login .flex-col {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 5606px;
+  margin-left: -8px;
+  margin-top: 56px;
+  min-height: 6605px;
+  width: 804px;
+}
+
+.login .image-9 {
+  align-self: flex-end;
+  height: 913px;
+  object-fit: cover;
+  width: 718px;
+}
+
+.login .rectangle-4 {
+  height: 86px;
+  width: 510px;
+}
+
+.login .flex-col-1 {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 102.64px;
+  min-height: 737px;
+  width: 497px;
+}
+
+.login .eat-together {
+  height: 65px;
+  margin-left: 2.42px;
+  width: 405px;
+}
+
+.login .log-in {
+  align-self: flex-start;
+  height: 51px;
+  margin-left: 46.31px;
+  margin-top: 28px;
+  width: 135px;
+}
+
+.login .overlap-group3 {
+  align-items: flex-end;
+  background-color: var(--alto);
+  display: flex;
+  height: 92px;
+  margin-top: 49px;
+  min-width: 497px;
+  padding: 13px 27px;
+}
+
+.login .email {
+  color: #808080;
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-m);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: normal;
+  min-height: 60px;
+  width: 352px;
+}
+
+.login .overlap-group {
+  align-items: flex-start;
+  background-color: var(--alto);
+  display: flex;
+  height: 92px;
+  margin-top: 27px;
+  min-width: 497px;
+  padding: 14px 27px;
+}
+
+.login .password {
+  color: #808080;
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-m);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: normal;
+  min-height: 60px;
+  width: 352px;
+}
+
+.login .overlap-group1 {
+  border-radius: 20px;
+  height: 79px;
+  margin-right: 28.0px;
+  margin-top: 54px;
+  position: relative;
+  width: 253px;
+}
+
+.login .rectangle {
+  background-color: var(--alto);
+  border-radius: 20px;
+  box-shadow: 0px 4px 4px #00000040;
+  cursor: pointer;
+  height: 79px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 253px;
+}
+
+.login .log-in-1 {
+  left: 34px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 9px;
+  width: 171px;
+}
+
+.login .title {
+  letter-spacing: 0;
+  line-height: normal;
+  margin-right: 28.0px;
+  margin-top: 30px;
+  min-height: 60px;
+  text-align: center;
+  width: 369px;
+}
+
+.login .overlap-group2 {
+  border-radius: 20px;
+  height: 79px;
+  margin-right: 28.0px;
+  margin-top: 32px;
+  position: relative;
+  width: 253px;
+}
+
+.login .sign-up {
+  cursor: pointer;
+  left: 34px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 9px;
+  width: 171px;
+}

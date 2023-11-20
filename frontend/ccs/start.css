@@ -1,0 +1,63 @@
+/* screen - start */
+
+.start {
+  align-items: flex-end;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 87px;
+  min-height: 994px;
+  padding: 0 101.0px;
+  width: 1485px;
+}
+
+.start .flex-row {
+  align-items: center;
+  display: flex;
+  gap: 306px;
+  margin-top: 40px;
+  min-width: 875px;
+}
+
+.start .eat-together {
+  height: 65px;
+  margin-top: 13.11px;
+  width: 405px;
+}
+
+.start .overlap-group {
+  height: 177px;
+  position: relative;
+  width: 164px;
+}
+
+.start .image-10 {
+  cursor: pointer;
+  height: 156px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 156px;
+}
+
+.start .title {
+  color: var(--black);
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  left: 30px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 144px;
+  white-space: nowrap;
+  width: 134px;
+}
+
+.start .rectangle-3 {
+  align-self: center;
+  height: 690px;
+  object-fit: cover;
+  width: 1257px;
+}
