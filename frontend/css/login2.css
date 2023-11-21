@@ -1,0 +1,80 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: flex;
+  height: 100vh; /* 100% of the viewport height */
+  gap: 40px;
+}
+
+.left-column {
+  flex: 1; /* Occupy 1 part of the available space */
+  overflow: hidden; /* Hide overflowing content */
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.left-column img {
+  height: 100%; /* Maintain aspect ratio */
+  width: auto; /* Make the image fill the container */
+  display: block; /* Remove extra space below the image */
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.right-column {
+  flex: 1; /* Occupy 1 part of the available space */
+  padding: 20px; /* Optional padding for content in the right column */
+  margin-right: 5%;
+  margin-top: 5%; 
+  margin-bottom: 5%;
+}
+
+.right-column h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.login-text {
+  color: #808080;
+  font-family: Arial, sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  font-size: 18px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.login-button, .signup-button {
+  width: 100%;
+  padding: 15px;
+  font-size: 20px; 
+  font-weight: bold;
+  border-radius: 5%;
+  background-color: #dfdfdf; 
+  color: #000;
+  text-align: center;
+  border: none;
+}
+
+
+.or-divider {
+  margin: 20px 0;
+  font-size: 18px;
+  text-align: center;
+}
