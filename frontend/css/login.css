@@ -1,160 +1,100 @@
 /* screen - login */
 
+:root {
+  --font-family-poppins: 'Poppins', sans-serif;
+  --font-size-m: 1rem;
+  --white: #ffffff;
+  --alto: #d9d9d9;
+  --shadow-color: rgba(0, 0, 0, 0.25);
+  --border-radius: 0.5rem; /* For rounded corners */
+}
+
 .login {
-  align-items: flex-start;
-  background-color: var(--white);
   display: flex;
-  gap: 80px;
-  height: 1024px;
-  min-width: 1440px;
-  overflow-x: hidden;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  background-color: var(--white);
+  gap: 5rem; /* Adjusted for better spacing */
+  min-height: 100vh; /* Full viewport height */
+  width: 100%; /* Full viewport width */
+  padding: 2rem; /* Padding around the content */
+  box-sizing: border-box;
 }
 
 .login .flex-col {
-  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  gap: 5606px;
-  margin-left: -8px;
-  margin-top: 56px;
-  min-height: 6605px;
-  width: 804px;
-}
-
-.login .image-9 {
-  align-self: flex-end;
-  height: 913px;
-  object-fit: cover;
-  width: 718px;
-}
-
-.login .rectangle-4 {
-  height: 86px;
-  width: 510px;
+  gap: 2rem; /* Adjusted for better spacing */
+  width: 50%; /* Adjusted for better fit */
 }
 
 .login .flex-col-1 {
-  align-items: center;
   display: flex;
   flex-direction: column;
-  margin-top: 102.64px;
-  min-height: 737px;
-  width: 497px;
+  align-items: center;
+  gap: 2rem; /* Adjusted for better spacing */
+  width: 50%; /* Adjusted for better fit */
 }
 
-.login .eat-together {
-  height: 65px;
-  margin-left: 2.42px;
-  width: 405px;
+.login input[type="email"],
+.login input[type="password"] {
+  background-color: transparent; /* No background color */
+  border: 1px solid #000; /* Simple border */
+  padding: 1rem; /* Padding inside input */
+  width: 100%; /* Full width of parent */
+  margin-bottom: 1rem; /* Space below inputs */
 }
 
-.login .log-in {
-  align-self: flex-start;
-  height: 51px;
-  margin-left: 46.31px;
-  margin-top: 28px;
-  width: 135px;
-}
-
-.login .overlap-group3 {
-  align-items: flex-end;
-  background-color: var(--alto);
+.login .button-container {
   display: flex;
-  height: 92px;
-  margin-top: 49px;
-  min-width: 497px;
-  padding: 13px 27px;
+  flex-direction: column;
+  gap: 1rem; /* Space between buttons */
 }
 
-.login .email {
-  color: #808080;
+.login .button {
+  background-color: var(--alto);
+  border-radius: 1rem; /* Rounded corners */
+  padding: 1rem 2rem; /* Padding inside button */
+  text-align: center;
+  box-shadow: 0 0.25rem 0.5rem var(--shadow-color); /* Shadow for depth */
+  cursor: pointer; /* Hand cursor on hover */
+  border: none; /* No border */
+}
+
+
+/* Adjust font sizing and colors as needed */
+.login .title, .login .button, .login input[type="email"], .login input[type="password"] {
   font-family: var(--font-family-poppins);
   font-size: var(--font-size-m);
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: normal;
-  min-height: 60px;
-  width: 352px;
+  color: #808080; /* Medium gray color */
 }
 
-.login .overlap-group {
-  align-items: flex-start;
-  background-color: var(--alto);
-  display: flex;
-  height: 92px;
-  margin-top: 27px;
-  min-width: 497px;
-  padding: 14px 27px;
-}
-
-.login .password {
-  color: #808080;
-  font-family: var(--font-family-poppins);
-  font-size: var(--font-size-m);
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: normal;
-  min-height: 60px;
-  width: 352px;
-}
-
-.login .overlap-group1 {
-  border-radius: 20px;
-  height: 79px;
-  margin-right: 28.0px;
-  margin-top: 54px;
-  position: relative;
-  width: 253px;
-}
-
-.login .rectangle {
-  background-color: var(--alto);
-  border-radius: 20px;
-  box-shadow: 0px 4px 4px #00000040;
-  cursor: pointer;
-  height: 79px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 253px;
-}
-
-.login .log-in-1 {
-  left: 34px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  text-align: center;
-  top: 9px;
-  width: 171px;
-}
-
-.login .title {
-  letter-spacing: 0;
-  line-height: normal;
-  margin-right: 28.0px;
-  margin-top: 30px;
-  min-height: 60px;
-  text-align: center;
-  width: 369px;
-}
-
-.login .overlap-group2 {
-  border-radius: 20px;
-  height: 79px;
-  margin-right: 28.0px;
-  margin-top: 32px;
-  position: relative;
-  width: 253px;
-}
-
+/* Styles for the buttons */
+.login .button,
+.login .log-in-1,
 .login .sign-up {
-  cursor: pointer;
-  left: 34px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  text-align: center;
-  top: 9px;
-  width: 171px;
+  background-color: var(--alto); /* Grey background */
+  border-radius: var(--border-radius); /* Rounded corners */
+  padding: 1rem; /* Padding inside button */
+  text-align: center; /* Center the text inside button */
+  box-shadow: 0 0.25rem 0.5rem var(--shadow-color); /* Shadow for depth */
+  cursor: pointer; /* Hand cursor on hover */
+  border: none; /* No border */
+  display: block; /* Make the element a block to fill the container */
+  width: 100%; /* Full width of the container */
+  margin-top: 1rem; /* Margin at the top for spacing */
+  text-decoration: none; /* Remove underline from links */
+  color: #000; /* Text color for the button */
+  font-family: var(--font-family-poppins);
+  font-size: var(--font-size-m);
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
+
+/* Hover effect for buttons */
+.login .button:hover,
+.login .log-in-1:hover,
+.login .sign-up:hover {
+  background-color: #bbb; /* Lighten the button color on hover */
+}
+
+/* Rest of your CSS for other elements */
