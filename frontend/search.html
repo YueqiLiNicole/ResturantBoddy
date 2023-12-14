@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Restaurant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- api gateway generated sdk -->
+  <script src="./js/sdk/lib/axios/dist/axios.standalone.js"></script>
+  <script src="./js/sdk/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+  <script src="./js/sdk/lib/CryptoJS/rollups/sha256.js"></script>
+  <script src="./js/sdk/lib/CryptoJS/components/hmac.js"></script>
+  <script src="./js/sdk/lib/CryptoJS/components/enc-base64.js"></script>
+  <script src="./js/sdk/lib/url-template/url-template.js"></script>
+  <script src="./js/sdk/lib/apiGatewayCore/sigV4Client.js"></script>
+  <script src="./js/sdk/lib/apiGatewayCore/apiGatewayClient.js"></script>
+  <script src="./js/sdk/lib/apiGatewayCore/simpleHttpClient.js"></script>
+  <script src="./js/sdk/lib/apiGatewayCore/utils.js"></script>
+
+  <script src="./js/sdk/apigClient.js"></script>
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1234.0.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="css/search.css" />
+  <link rel="stylesheet" type="text/css" href="css/styleguide.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="css/globals.css" /> -->
+
+</head>
+<body>
+  <div class="container">
+    <!-- <h1>Photo Album</h1> -->
+
+
+    <div class="search-bar">
+      <input id="search-input" type="text" placeholder="Search for restaurants...">
+      <button id="search-button">Search</button>
+    </div>
+
+    <div class="filters">
+      <button class="filter" id="priceFilter">Price</button>
+      <button class="filter" id="categoryFilter">Category</button>
+  </div>
+  <div id="restaurantList" class="restaurant-list">
+      <!-- Restaurant cards will be generated here by JavaScript -->
+  </div>
+
+  
+
+
+  <script>
+    var sdk = apigClientFactory.newClient({});
+  </script>
+
+  <!-- chat js -->
+  <script src="./js/index.js"></script>
+  <script src="./js/restaurant-card.js"></script>
+
+</body>
+</html>
