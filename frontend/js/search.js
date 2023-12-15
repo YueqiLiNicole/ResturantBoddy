@@ -33,44 +33,44 @@ $(document).ready(function() {
         displayRestaurants(filtered_restaurants);
     });
 
-    rateButton.addEventListener('click', function () {
-        var body = {
-            restaurantID: restaurantID,
-            rating: rateInput.value
-        };
-        sdk.rateRestaurantPost({}, body, {}).then((response) => {
-            console.log('Rate response:', response['data']['body']);
-        });
-    });
+    // rateButton.addEventListener('click', function () {
+    //     var body = {
+    //         restaurantID: restaurantID,
+    //         rating: rateInput.value
+    //     };
+    //     sdk.rateRestaurantPost({}, body, {}).then((response) => {
+    //         console.log('Rate response:', response['data']['body']);
+    //     });
+    // });
 
-    commentButton.addEventListener('click', function () {
-        let today = new Date();
+    // commentButton.addEventListener('click', function () {
+    //     let today = new Date();
 
-        // Format the date as 'YYYY-MM-DD'
-        let dateString = today.getFullYear() + '-' + 
-            ('0' + (today.getMonth() + 1)).slice(-2) + '-' + 
-            ('0' + today.getDate()).slice(-2);
+    //     // Format the date as 'YYYY-MM-DD'
+    //     let dateString = today.getFullYear() + '-' + 
+    //         ('0' + (today.getMonth() + 1)).slice(-2) + '-' + 
+    //         ('0' + today.getDate()).slice(-2);
 
-        var body = {
-            restaurantID: restaurantID,
-            username: username,
-            comment: commentInput.value,
-            date: dateString
-        };
-        sdk.commentRestaurantPost({}, body, {}).then((response) => {
-            console.log('Comment response:', response['data']['body']);
-        });
-    });
+    //     var body = {
+    //         restaurantID: restaurantID,
+    //         username: username,
+    //         comment: commentInput.value,
+    //         date: dateString
+    //     };
+    //     sdk.commentRestaurantPost({}, body, {}).then((response) => {
+    //         console.log('Comment response:', response['data']['body']);
+    //     });
+    // });
 
-    likeButton.addEventListener('click', function () {
-        var body = {
-            restaurantID: restaurantID,
-            userID: userID
-        };
-        sdk.likeRestaurantPost({}, body, {}).then((response) => {
-            console.log('Like response:', response['data']['body']);
-        });
-    });
+    // likeButton.addEventListener('click', function () {
+    //     var body = {
+    //         restaurantID: restaurantID,
+    //         userID: userID
+    //     };
+    //     sdk.likeRestaurantPost({}, body, {}).then((response) => {
+    //         console.log('Like response:', response['data']['body']);
+    //     });
+    // });
 
 
 
@@ -88,10 +88,17 @@ $(document).ready(function() {
         var card = document.createElement('div');
         card.className = 'restaurant-card';
     
-        var name = document.createElement('h3');
-        name.textContent = restaurant.name;
-        card.appendChild(name);
+        var image = document.createElement('img');
+        image.src = restaurant.imageUrl ? restaurant.imageUrl : './img/default_restaurant_image.jpg';
+        image.alt = restaurant.name;
+        image.className = 'restaurant-image';
     
+        var name = document.createElement('h4');
+        name.textContent = restaurant.name;
+        name.className = 'restaurant-name';
+    
+        card.appendChild(image);
+        card.appendChild(name);
     
         return card;
     }

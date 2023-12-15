@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search Restaurant</title>
+  <title>Photo Album</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -30,23 +30,23 @@
 </head>
 <body>
   <div class="container">
-    <!-- <h1>Photo Album</h1> -->
 
+    <section>
+      <div class="search-bar">
+        <input id="search-input" type="text" placeholder="Search photos...">
+        <button id="search-button">Search</button>
+      </div>
+    </section>
 
-    <div class="search-bar">
-      <input id="search-input" type="text" placeholder="Search for restaurants...">
-      <button id="search-button">Search</button>
-    </div>
+    <section>
+      <button id="filter-button">$$$</button>
+      </div>
+  </section>
 
-    <div class="filters">
-      <button class="filter" id="priceFilter">Price</button>
-      <button class="filter" id="categoryFilter">Category</button>
-  </div>
-  <div id="restaurantList" class="restaurant-list">
-      <!-- Restaurant cards will be generated here by JavaScript -->
-  </div>
-
-  
+    <section>
+      <div id="restaurantDisplay" class="restaurant-list">
+      </div>
+  </section>
 
 
   <script>
@@ -54,8 +54,7 @@
   </script>
 
   <!-- chat js -->
-  <script src="./js/index.js"></script>
-  <script src="./js/restaurant-card.js"></script>
+  <script src="./js/search.js"></script>
 
 </body>
 </html>
