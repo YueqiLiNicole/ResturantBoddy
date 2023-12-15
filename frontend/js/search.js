@@ -27,11 +27,27 @@ $(document).ready(function() {
         });
     });
 
-    filterButton.addEventListener('click', function () {
-        let filtered_restaurants = searched_restaurants.filter(item => item.price == "$$$");
+    // filterButton.addEventListener('click', function () {
+    //     let filtered_restaurants = searched_restaurants.filter(item => item.price == "$$$");
+    //     console.log('Filtered restaurants:', filtered_restaurants);
+    //     displayRestaurants(filtered_restaurants);
+    // });
+
+
+    document.getElementById('applyFilterButton').addEventListener('click', function () {
+        let priceFilterValue = document.getElementById('priceFilter').value;
+        let ratingFilterValue = document.getElementById('ratingFilter').value;
+    
+        let filtered_restaurants = searched_restaurants.filter(restaurant => {
+            let matchesPrice = priceFilterValue === "" || restaurant.price === priceFilterValue;
+            let matchesRating = ratingFilterValue === "" || restaurant.rating === ratingFilterValue;
+            return matchesPrice && matchesRating;
+        });
+    
         console.log('Filtered restaurants:', filtered_restaurants);
         displayRestaurants(filtered_restaurants);
     });
+    
 
     // rateButton.addEventListener('click', function () {
     //     var body = {

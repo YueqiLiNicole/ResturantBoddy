@@ -106,14 +106,14 @@ h2 {
 .restaurant-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
 }
 
 .restaurant-card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  width: 23%; /* 4 cards per line */
-  margin-bottom: 20px; /* add margin bottom space for cards */
+  width: 22%; /* 4 cards per line */
+  margin: 10px;
 }
 
 .restaurant-card:hover {
