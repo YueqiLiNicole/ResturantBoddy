@@ -1,7 +1,8 @@
 var username = 'eric';
-var userID = 'cd2445';
+var userID = '29f78211-2096-41a3-92a7-ee2f35f12747';
+var buddyID = '948f44b9-f080-48b6-a152-7dbedc8a3ee7';
 var restaurantID = 'XjeGryxde-tQZF_Ewu7NCw';
-var searched_restaurants = []
+var searched_restaurants = [];
 
 $(document).ready(function() {
     const searchInput = document.getElementById('search-input');
@@ -12,6 +13,26 @@ $(document).ready(function() {
     const commentButton = document.getElementById('comment-button');
     const likeButton = document.getElementById('like-button');
     const filterButton = document.getElementById('filter-button');
+
+    const emailInput = document.getElementById('email-input');
+    const passwordInput = document.getElementById('password-input');
+    const nameInput = document.getElementById('name-input');
+    const signupButton = document.getElementById('signup-button');
+
+    const emailInput2 = document.getElementById('email-input2');
+    const nameInput2 = document.getElementById('name-input2');
+    const phoneInput = document.getElementById('phone-input');
+    const cuisineInput = document.getElementById('cuisine-input');
+    const locationInput = document.getElementById('location-input');
+    const edituserButton = document.getElementById('edit-user-button');
+
+    const restaurantButton = document.getElementById('restaurant-button');
+    const userButton = document.getElementById('user-button');
+
+    const rateUserInput = document.getElementById('rate-user-input');
+    const rateUserButton = document.getElementById('rate-user-button');
+    const commentUserInput = document.getElementById('comment-user-input');
+    const commentUserButton = document.getElementById('comment-user-button');
 
     searchButton.addEventListener('click', function () {
         var params = {
@@ -72,28 +93,81 @@ $(document).ready(function() {
         });
     });
 
-
-
-    function displayRestaurants(restaurants) {
-        var restaurantList = document.getElementById('restaurantDisplay');
-        restaurantList.innerHTML = ''; 
-    
-        restaurants.forEach(function(restaurant) {
-            var card = createRestaurantCard(restaurant);
-            restaurantList.appendChild(card);
+    signupButton.addEventListener('click', function () {
+        var body = {
+            email: emailInput.value,
+            username: nameInput.value,
+            password: passwordInput.value
+        };
+        sdk.createUserPost({}, body, {}).then((response) => {
+            console.log('Signup response:', response);
         });
-    }
-    
-    function createRestaurantCard(restaurant) {
-        var card = document.createElement('div');
-        card.className = 'restaurant-card';
-    
-        var name = document.createElement('h3');
-        name.textContent = restaurant.name;
-        card.appendChild(name);
-    
-    
-        return card;
-    }
-    
+    });
+
+    edituserButton.addEventListener('click', function () {
+        var body = {
+            userID: userID,
+            email: emailInput2.value,
+            username: nameInput2.value,
+            phone: phoneInput.value,
+            cuisine: cuisineInput.value,
+            location: locationInput.value,
+        };
+        sdk.editUserPut({}, body, {}).then((response) => {
+            console.log('Edit profile response:', response);
+        });
+    });
+
+    restaurantButton.addEventListener('click', function () {
+        var params = {
+            q: restaurantID
+        };
+        console.log('Sending the following parameters to Lambda:', params);
+        var body = {};
+        var additionalParams = {};
+        sdk.getRestaurantByIdGet(params, body, additionalParams).then((response) => {
+            console.log('Restaurant response:', response);
+        });
+    });
+
+    userButton.addEventListener('click', function () {
+        var params = {
+            q: userID
+        };
+        console.log('Sending the following parameters to Lambda:', params);
+        var body = {};
+        var additionalParams = {};
+        sdk.getUserByIdGet(params, body, additionalParams).then((response) => {
+            console.log('User response:', response);
+        });
+    });
+
+    rateUserButton.addEventListener('click', function () {
+        var body = {
+            buddyID: buddyID,
+            rating: rateUserInput.value
+        };
+        sdk.rateUserPost({}, body, {}).then((response) => {
+            console.log('Rate user response:', response['data']['body']);
+        });
+    });
+
+    commentUserButton.addEventListener('click', function () {
+        let today = new Date();
+
+        // Format the date as 'YYYY-MM-DD'
+        let dateString = today.getFullYear() + '-' + 
+            ('0' + (today.getMonth() + 1)).slice(-2) + '-' + 
+            ('0' + today.getDate()).slice(-2);
+
+        var body = {
+            buddyID: buddyID,
+            username: username,
+            comment: commentUserInput.value,
+            date: dateString
+        };
+        sdk.commentUserPost({}, body, {}).then((response) => {
+            console.log('Comment user response:', response['data']['body']);
+        });
+    });
 });
