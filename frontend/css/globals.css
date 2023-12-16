@@ -30,3 +30,40 @@
 * {
   box-sizing: border-box;
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff; /* or any color that matches your design */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* subtle shadow for depth */
+}
+
+.nav-left a {
+  text-decoration: none;
+  color: #333333; /* or any color you prefer */
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.nav-right img {
+  width: 50px; /* Adjust size as needed */
+  height: 50px;
+  border-radius: 50%; /* Circular avatar */
+  cursor: pointer;
+}
+
+
+#homeButton {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+#userAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
