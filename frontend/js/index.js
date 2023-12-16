@@ -44,12 +44,14 @@ $(document).ready(function() {
         sdk.searchRestaurantGet(params, body, additionalParams).then((response) => {
             console.log('Search response:', response['data']['results']);
             searched_restaurants = response['data']['results'];
+            displayRestaurants(searched_restaurants);
         });
     });
 
     filterButton.addEventListener('click', function () {
         let filtered_restaurants = searched_restaurants.filter(item => item.price == "$$$");
         console.log('Filtered restaurants:', filtered_restaurants);
+        displayRestaurants(filtered_restaurants);
     });
 
     rateButton.addEventListener('click', function () {
