@@ -299,6 +299,42 @@ apigClientFactory.newClient = function (config) {
     };
     
     
+    apigClient.getUseridByEmailGet = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, ['q'], ['body']);
+        
+        var getUseridByEmailGetRequest = {
+            verb: 'get'.toUpperCase(),
+            path: pathComponent + uritemplate('/get-userid-by-email').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, ['q']),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(getUseridByEmailGetRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
+    apigClient.getUseridByEmailOptions = function (params, body, additionalParams) {
+        if(additionalParams === undefined) { additionalParams = {}; }
+        
+        apiGateway.core.utils.assertParametersDefined(params, [], ['body']);
+        
+        var getUseridByEmailOptionsRequest = {
+            verb: 'options'.toUpperCase(),
+            path: pathComponent + uritemplate('/get-userid-by-email').expand(apiGateway.core.utils.parseParametersToObject(params, [])),
+            headers: apiGateway.core.utils.parseParametersToObject(params, []),
+            queryParams: apiGateway.core.utils.parseParametersToObject(params, []),
+            body: body
+        };
+        
+        
+        return apiGatewayClient.makeRequest(getUseridByEmailOptionsRequest, authType, additionalParams, config.apiKey);
+    };
+    
+    
     apigClient.likeRestaurantPost = function (params, body, additionalParams) {
         if(additionalParams === undefined) { additionalParams = {}; }
         
