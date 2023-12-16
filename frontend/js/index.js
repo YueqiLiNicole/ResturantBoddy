@@ -1,7 +1,8 @@
 var username = 'eric';
 var userID = '29f78211-2096-41a3-92a7-ee2f35f12747';
+var buddyID = '948f44b9-f080-48b6-a152-7dbedc8a3ee7';
 var restaurantID = 'XjeGryxde-tQZF_Ewu7NCw';
-var searched_restaurants = []
+var searched_restaurants = [];
 
 $(document).ready(function() {
     const searchInput = document.getElementById('search-input');
@@ -27,6 +28,11 @@ $(document).ready(function() {
 
     const restaurantButton = document.getElementById('restaurant-button');
     const userButton = document.getElementById('user-button');
+
+    const rateUserInput = document.getElementById('rate-user-input');
+    const rateUserButton = document.getElementById('rate-user-button');
+    const commentUserInput = document.getElementById('comment-user-input');
+    const commentUserButton = document.getElementById('comment-user-button');
 
     searchButton.addEventListener('click', function () {
         var params = {
@@ -131,6 +137,35 @@ $(document).ready(function() {
         var additionalParams = {};
         sdk.getUserByIdGet(params, body, additionalParams).then((response) => {
             console.log('User response:', response);
+        });
+    });
+
+    rateUserButton.addEventListener('click', function () {
+        var body = {
+            buddyID: buddyID,
+            rating: rateUserInput.value
+        };
+        sdk.rateUserPost({}, body, {}).then((response) => {
+            console.log('Rate user response:', response['data']['body']);
+        });
+    });
+
+    commentUserButton.addEventListener('click', function () {
+        let today = new Date();
+
+        // Format the date as 'YYYY-MM-DD'
+        let dateString = today.getFullYear() + '-' + 
+            ('0' + (today.getMonth() + 1)).slice(-2) + '-' + 
+            ('0' + today.getDate()).slice(-2);
+
+        var body = {
+            buddyID: buddyID,
+            username: username,
+            comment: commentUserInput.value,
+            date: dateString
+        };
+        sdk.commentUserPost({}, body, {}).then((response) => {
+            console.log('Comment user response:', response['data']['body']);
         });
     });
 });
