@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="css/personal-info.css" />
+    <link rel="stylesheet" type="text/css" href="css/styleguide.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <!-- api gateway generated sdk -->
+    <script src="./js/sdk/lib/axios/dist/axios.standalone.js"></script>
+    <script src="./js/sdk/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script src="./js/sdk/lib/CryptoJS/rollups/sha256.js"></script>
+    <script src="./js/sdk/lib/CryptoJS/components/hmac.js"></script>
+    <script src="./js/sdk/lib/CryptoJS/components/enc-base64.js"></script>
+    <script src="./js/sdk/lib/url-template/url-template.js"></script>
+    <script src="./js/sdk/lib/apiGatewayCore/sigV4Client.js"></script>
+    <script src="./js/sdk/lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script src="./js/sdk/lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script src="./js/sdk/lib/apiGatewayCore/utils.js"></script>
+
+    <script src="./js/sdk/apigClient.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1234.0.js"></script>
+      <script>
+        var sdk = apigClientFactory.newClient({});
+      </script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css');
+    .icon {
+  /* Adjust margin if necessary */
+      margin-right: 10px;
+      align-self: center; /* Align the icon vertically */
+    }
+
+    /* Container for the personal information and dining preference */
+  .personal-dining-info {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: flex-start; /* Align children to the start of the cross axis */
+  }
+
+    /* Make sure icons and inputs align nicely */
+    .field-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px; /* Space between each field group */
+    }
+
+    .editable-field {
+      flex-grow: 1;
+      border: 0px solid #ccc;
+      border-radius: 4px;
+      padding: 8px;
+      font-size: 30px; /* Adjust as needed */
+    }
+      }
+      .button-container {
+    display: flex;
+    justify-content: center;
+    padding: 100px;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ccc;
+    background-color: white;
+    padding: 20px;
+    z-index: 1000;
+}
+
+
+.rating-box {
+  background: #fff;
+  padding: 25px 50px 35px;
+  border-radius: 25px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+.rating-box header {
+  font-size: 22px;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.stars i {
+  color: #e6e6e6;
+  font-size: 35px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.stars i.active, .stars i:hover, .stars i:hover ~ i {
+  color: #ff9c1a;
+}
+
+.review-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  height: 100px; /* Adjust the height as needed */
+  font-family: "Poppins", sans-serif;
+  font-size: 16px; /* Adjust the font size as needed */
+}
+
+.button-style {
+    background-color:   #808080; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 30px; /* Larger padding for bigger size */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px; /* Larger font size */
+    margin: 10px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.button-style:hover {
+    background-color: #45a049; /* Darker shade on hover */
+}
+
+/* Additional styling to align buttons at the center */
+.popup {
+    text-align: center; /* Center align the content */
+}
+
+.popup .button-style {
+    margin-top: 20px; /* Space above the button */
+}
+.original-button {
+    /* Add your original styles here, or leave it empty to inherit styles from elsewhere */
+    padding: 10px 20px; /* Example: Smaller padding */
+    font-size: 16px; /* Example: Smaller font size */
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.reviews-content {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.review-item {
+    background: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.review-date {
+    font-size: 14px;
+    color: #666;
+}
+
+.review-comment {
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+.review-username {
+    font-weight: bold;
+}
+.star-rating {
+    color: #ff9c1a; /* Star color */
+    font-size: 24px; /* Star size */
+}
+    </style>
+  </head>
+  <body style="margin: 0; background: #ffffff">
+    <input type="hidden" id="anPageName" name="page" value="personal-info" />
+    <div class="container-center-horizontal">
+      <div class="personal-info screen">
+        <!-- Existing content up to name -->
+             <div class="flex-row flex poppins-semi-bold-black-40px">
+          <div class="home-page poppins-semi-bold-black-40px">Home Page</div>
+          
+            <div class="overlap-group">
+              <a href="personal-info.html"><img class="xnix-line-pencil-edit" src="img/ellipse-2.jpg" alt="Ellipse 2"/></a>
+        </div>
+
+
+
+        <div class="flex-col flex">
+          <img class="ellipse-2" src="img/ellipse@2x.png" alt="Ellipse@2" />
+          <img class="interface-heart_02" src="img/interface---heart-02-1.svg" alt="Interface / Heart_02" />
+          <input type="text" id="nameField" class="editable-field name" >
+          
+        </div>
+        <!-- Phone and Email -->
+
+      <div class="flex-col-1 flex-col-3">
+        <img class="personal-information" src="img/personal-information.jpg" alt="Personal Information" />
+        <img class="dining-preference" src="img/dining-preference.jpg" alt="Dining Preference" />
+        <div class="personal-dining-info">
+      <div class="field-group">
+        <i class="fa-solid fa-phone icon"></i>
+        <input type="text" id="telField" class="editable-field" value="Default Phone">
+      </div>
+      <div class="field-group">
+        <i class="fa-solid fa-envelope icon"></i>
+        <input type="text" id="emailField" class="editable-field" value="aa1234@columbia.edu">
+      </div>
+      </div>
+      <!-- ... other elements ... -->
+    </div>
+
+    <div class="flex-col-2 flex-col-3">
+  <div class="personal-dining-info">
+    <div class="field-group">
+      <i class="fa-solid fa-heart icon"></i>
+      <input type="text" id="cuisineField" class="editable-field" value="Italian, Thai">
+    </div>
+    <div class="field-group">
+      <i class="fa-solid fa-location-dot icon"></i>
+      <input type="text" id="locationField" class="editable-field" value="Manhattan, NY">
+    </div>
+  </div>
+</div>
+
+<div id="reviewsPopup" class="popup" style="display: none;">
+    <div class="reviews-content">
+        <header>Your Reviews</header>
+        <div id="reviewsList" class="reviews-list">
+            <!-- Reviews will be dynamically inserted here -->
+        </div>
+    </div>
+    <button class="button-style" onclick="closeReviewsPopup()">Close</button>
+</div>
+       <!--  <div class="flex-col-2 flex-col-3">
+           
+              <div class="field-group">
+         <img class="interface-heart_02-1" src="img/interface---heart-02.svg" alt="Interface / Heart_02" />
+        
+            <input type="text" id="cuisineField" class="editable-field" placeholder="Italian, Thai">
+      </div>
+      <div class="field-group">
+        <img class="icon-pin-outline" src="img/---icon--pin-outline-.jpg" alt="icon 'pin outline'" />
+         <input type="text" id="locationField" class="editable-field" placeholder="Manhattan, NY">
+      </div> -->
+              
+
+        <!-- Rest of the existing content -->
+        <div class="flex-row-1">
+          <div id="ratingStars" class="star-rating"></div>
+         <div class="x1-reviews poppins-normal-black-32px" id="reviewsTrigger">
+          <span class="poppins-normal-black-32px">(</span>
+          <span class="span1 poppins-normal-black-32px" id="numberOfReviews">1</span>
+          <span class="poppins-normal-black-32px">) reviews</span>
+      </div>
+
+      <!-- Reviews Pop-up -->
+      <div id="reviewsPopup" class="popup" style="display: none;">
+          <div class="reviews-content">
+              <header>Your Reviews</header>
+              <div id="reviewsList" class="reviews-list">
+                  <!-- Reviews will be dynamically inserted here -->
+              </div>
+              <button class="button-style" onclick="closeReviewsPopup()">Close</button>
+          </div>
+      </div>
+          <div class="button-container">
+              <button id="rateBuddyButton" class="button-style">Rate the Buddy</button>
+              <button id="writeReviewButton" class="button-style">Write a Review</button>
+
+          </div>
+<div id="rateBuddyPopup" class="popup">
+    <div class="rating-box">
+        <header>How do you like you buddy?</header>
+        <div class="stars">
+            <i class="fa-solid fa-star" data-value="1"></i>
+            <i class="fa-solid fa-star" data-value="2"></i>
+            <i class="fa-solid fa-star" data-value="3"></i>
+            <i class="fa-solid fa-star" data-value="4"></i>
+            <i class="fa-solid fa-star" data-value="5"></i>
+        </div>
+    </div>
+    <button id="submitRatingButton" class="button-style original-button">Submit Rating</button>
+</div>
+<div id="writeReviewPopup" class="popup">
+    <div class="rating-box">
+        <header>Write Your Review</header>
+        <textarea id="reviewText" class="review-textarea" placeholder="Share your experience..."></textarea>
+    </div>
+    <button id="submitReviewButton" class="button-style original-button">Submit Review</button>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+    <!-- JavaScript for Save and Discard functionality -->
+    <script>
+      console.log(sdk);
+      var username = 'xie';
+      var userID = '20166a12-a014-4c53-af85-732d895faa57';
+      var buddyID = 'f518fa66-cbe2-49f0-8080-bc0b9652f637';
+      var restaurantID = 'XjeGryxde-tQZF_Ewu7NCw';
+      var searched_restaurants = [];
+
+      var originalValues = {};
+      var fields = ["nameField", "telField", "emailField", "cuisineField", "locationField"];
+
+      // Function to store original values
+      function storeOriginalValues() {
+          fields.forEach(function(field) {
+              originalValues[field] = document.getElementById(field).value;
+          });
+      }
+
+
+function fetchUserInfo() {
+    // Assuming 'userID' is a global variable containing the user's ID
+    var params = {
+        q: buddyID // The API is expecting a query parameter 'q'
+    };
+    var body = {};
+    var additionalParams = {};
+
+    // Call the getUserByIdGet function from the SDK
+    sdk.getUserByIdGet(params, body, additionalParams)
+        .then(function(response) {
+            // Log the response for debugging
+            console.log('User response:', response);
+
+            // Assuming the relevant user data is in response.data
+            fillUserData(response.data);
+            displayRating(response.data.rating);
+        })
+        .catch(function(error) {
+            // Log any error
+            console.error('Error fetching user data:', error);
+        });
+}
+
+function fillUserData(userData) {
+    // Check if the userData object has the properties you expect
+    // Update the placeholder attributes of the input fields
+    if(userData) {
+        document.getElementById('nameField').value = userData.name || 'Enter Name';
+        document.getElementById('telField').value = userData.phone || 'Enter Phone Number';
+        document.getElementById('emailField').value = userData.email || 'Enter Email';
+        document.getElementById('cuisineField').value = userData.cuisine || 'Enter Favorite Cuisine';
+        document.getElementById('locationField').value = userData.location || 'Enter Location';
+    }
+      if (userData && userData.reviews) {
+        document.getElementById('numberOfReviews').textContent = userData.reviews.length;
+        document.getElementById('reviewsTrigger').addEventListener('click', function() {
+            showReviewsPopup(userData.reviews);
+        });
+    }
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    storeOriginalValues();
+    fetchUserInfo(); // This will fetch user data and update placeholders
+});
+
+document.getElementById('rateBuddyButton').addEventListener('click', function() {
+    document.getElementById('rateBuddyPopup').style.display = 'block';
+    // Add logic for the rating system here
+});
+
+document.getElementById('writeReviewButton').addEventListener('click', function() {
+    document.getElementById('writeReviewPopup').style.display = 'block';
+    // Add logic for writing a review here
+});
+
+document.getElementById('submitReviewButton').addEventListener('click', function() {
+    let today = new Date();
+    let dateString = today.getFullYear() + '-' + 
+        ('0' + (today.getMonth() + 1)).slice(-2) + '-' + 
+        ('0' + today.getDate()).slice(-2);
+
+    var body = {
+        buddyID: buddyID,
+        username: username,
+        comment: document.getElementById('reviewText').value, // Assuming 'reviewText' is the ID of your review textarea
+        date: dateString
+    };
+
+    sdk.commentUserPost({}, body, {}).then((response) => {
+        console.log('Comment user response:', response['data']['body']);
+        document.getElementById('writeReviewPopup').style.display = 'none';
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelectorAll("#rateBuddyPopup .stars i");
+    let selectedRating = 0; // To keep track of the selected rating
+
+    stars.forEach((star, index1) => {
+        star.addEventListener("click", () => {
+            stars.forEach((star, index2) => {
+                index1 >= index2 ? star.classList.add("active") : star.classList.remove("active");
+            });
+            selectedRating = index1 + 1; // Update the selected rating
+        });
+    });
+
+    document.getElementById('submitRatingButton').addEventListener('click', function() {
+        // Prepare the data to be sent
+        var body = {
+            buddyID: buddyID,
+            rating: selectedRating
+        };
+
+        // Call the SDK function to submit the rating
+        sdk.rateUserPost({}, body, {}).then((response) => {
+            console.log('Rate user response:', response['data']['body']);
+
+            // Close the popup after submission
+            document.getElementById('rateBuddyPopup').style.display = 'none';
+        }).catch(function(error) {
+            console.error('Error submitting rating:', error);
+            // Handle any errors here
+        });
+    });
+});
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Update the number of reviews
+    document.getElementById('numberOfReviews').textContent = userData.numberOfReviews;
+
+    // Event listener to open the reviews pop-up
+    document.getElementById('reviewsTrigger').addEventListener('click', function() {
+        showReviewsPopup(userData.reviews);
+    });
+});
+
+function showReviewsPopup(reviews) {
+    const reviewsList = document.getElementById('reviewsList');
+    reviewsList.innerHTML = ''; // Clear existing content
+
+    reviews.forEach(review => {
+        // Directly accessing properties of each review
+        const reviewElement = document.createElement('div');
+        reviewElement.classList.add('review-item');
+        reviewElement.innerHTML = `
+            <div class="review-date">${review.date}</div>
+            <div class="review-comment">${review.comment}</div>
+            <div class="review-username">- ${review.username}</div>
+        `;
+        reviewsList.appendChild(reviewElement);
+    });
+
+    document.getElementById('reviewsPopup').style.display = 'block';
+}
+
+function closeReviewsPopup() {
+    document.getElementById('reviewsPopup').style.display = 'none';
+}
+function displayRating(rating) {
+    const ratingStars = document.getElementById('ratingStars');
+    ratingStars.innerHTML = ''; // Clear previous stars
+
+    // Loop to display full, half, and empty stars
+    for (let i = 1; i <= 5; i++) {
+        if (i <= rating) {
+            ratingStars.innerHTML += '<i class="fa-solid fa-star"></i>'; // Full star
+        } else if (i - 0.5 <= rating) {
+            ratingStars.innerHTML += '<i class="fa-solid fa-star-half-stroke"></i>'; // Half star
+        } else {
+            ratingStars.innerHTML += '<i class="fa-regular fa-star"></i>'; // Empty star
+        }
+    }
+}
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetchUserInfo();
+});
+
+
+    </script>
+  </body>
+</html>
