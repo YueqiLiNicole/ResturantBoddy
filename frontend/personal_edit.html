@@ -160,8 +160,8 @@
     <script>
       console.log(sdk);
       var username = 'eric';
-      var userID = '29f78211-2096-41a3-92a7-ee2f35f12747';
-      var buddyID = '948f44b9-f080-48b6-a152-7dbedc8a3ee7';
+      var buddyID = '20166a12-a014-4c53-af85-732d895faa57';
+      var userID = 'f518fa66-cbe2-49f0-8080-bc0b9652f637';
       var restaurantID = 'XjeGryxde-tQZF_Ewu7NCw';
       var searched_restaurants = [];
 
@@ -341,15 +341,11 @@ function validateFields() {
 
 
 
-// Your existing validation functions...
-// validatePhoneNumber, validateEmail, validateCuisine, validateLocation...
 
 // Helper function to display alerts
 function showAlert(message) {
     alert(message);
 }
-
-
 
 function fetchUserInfo() {
     // Assuming 'userID' is a global variable containing the user's ID
@@ -408,32 +404,10 @@ function registerChange(fieldId) {
     fieldChanges[fieldId] = true;
 }
 
-// Set up event listeners to track changes on each field
 
 
-      // Event listeners
-      document.addEventListener("DOMContentLoaded", function() {
-        storeOriginalValues();
-        document.getElementById('nameField').addEventListener('input', function() { registerChange('nameField'); });
-        document.getElementById('telField').addEventListener('input', function() { registerChange('telField'); });
-        document.getElementById('emailField').addEventListener('input', function() { registerChange('emailField'); });
-        document.getElementById('cuisineField').addEventListener('input', function() { registerChange('cuisineField'); });
-        document.getElementById('locationField').addEventListener('input', function() { registerChange('locationField'); });
-        document.getElementById("saveButton").addEventListener("click", saveInfo);
-        document.getElementById("discardButton").addEventListener("click", discardChanges);
-        fetchUserInfo();
-          // // fetchUserData();
-          // const exampleUserData = {
-          //       name: "John Doe",
-          //       phone: "+1 (555) 123-4567",
-          //       email: "john.doe@example.com",
-          //       favoriteCuisine: "Italian",
-          //       location: "New York, NY"
-          //   };
 
-          //   // Call `fillUserData` with the example user data
-          //   fillUserData(exampleUserData);
-      });
+
     </script>
   </body>
 </html>
