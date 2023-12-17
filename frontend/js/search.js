@@ -99,10 +99,33 @@ $(document).ready(function() {
             restaurantList.appendChild(card);
         });
     }
+
+    // function createRestaurantCard(restaurant) {
+    //     var card = document.createElement('div');
+    //     card.className = 'restaurant-card';
+    
+
+    //     var name = document.createElement('h3');
+    //     name.textContent = restaurant.name;
+    //     card.appendChild(name);
+    
+
+    //     card.onclick = function() {
+
+    //         window.location.href = 'restaurant.html?id=' + restaurant.id;
+    //     };
+    
+    //     return card;
+    // }
+    
     
     function createRestaurantCard(restaurant) {
         var card = document.createElement('div');
         card.className = 'restaurant-card';
+        card.style.cursor = 'pointer';
+        card.onclick = function() {
+            window.location.href = 'restaurant.html?id=' + restaurant.id;
+        };
     
         var image = document.createElement('img');
         image.src = restaurant.imageUrl ? restaurant.imageUrl : './img/default_restaurant_image.jpg';
@@ -118,5 +141,6 @@ $(document).ready(function() {
     
         return card;
     }
+    
     
 });
