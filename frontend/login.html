@@ -63,6 +63,9 @@
             cognitoUser.authenticateUser(authenticationDetails, {
                 onSuccess: function (result) {
                     console.log('access token + ' + result.getAccessToken().getJwtToken());
+                    localStorage.setItem('accessToken', result.getAccessToken().getJwtToken());
+                    localStorage.setItem('idToken', result.getIdToken().getJwtToken());
+                    localStorage.setItem('refreshToken', result.getRefreshToken().getToken());
                     // Redirect to search.html on successful login
                     window.location.href = 'search.html';
                 },
