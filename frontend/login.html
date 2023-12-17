@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
@@ -9,35 +9,69 @@
     <link rel="stylesheet" type="text/css" href="css/login.css" />
     <link rel="stylesheet" type="text/css" href="css/styleguide.css" />
     <link rel="stylesheet" type="text/css" href="css/globals.css" />
-  </head>
-  <body style="margin: 0; background: #ffffff">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1043.0/aws-sdk.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1043.0/aws-sdk.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js/dist/amazon-cognito-identity.min.js"></script>
+</head>
+<body style="margin: 0; background: #ffffff">
     <input type="hidden" id="anPageName" name="page" value="login" />
     <div class="container-center-horizontal">
-      <div class="login screen">
-        <div class="flex-col">
-          <img class="image-9" src="img/image-9.png" alt="image 9" />
+        <div class="login screen">
+            <div class="flex-col">
+                <img class="image-9" src="img/image-9.png" alt="image 9" />
+            </div>
+            <div class="flex-col-1">
+                <img class="eat-together" src="img/eat-together.jpg" alt="Eat Together" />
+                <!-- Email input field -->
+                <div class="overlap-group3">
+                    <input type="email" id="emailInput" class="email" placeholder="Email">
+                </div>
+                <!-- Password input field -->
+                <div class="overlap-group">
+                    <input type="password" id="passwordInput" class="password" placeholder="Password">
+                </div>
+                <div class="overlap-group1">
+                    <button onclick="loginUser()" class="log-in-1 poppins-semi-bold-black-40px">Log in</button>
+                </div>
+                <h1 class="title poppins-semi-bold-black-40px">--- Or ---</h1>
+                <div class="overlap-group2">
+                    <a href="https://testapps.auth.us-east-1.amazoncognito.com/signup?client_id=7tlmk6mpfvlpgkb4n4jpakci19&response_type=code&scope=email+openid+phone&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fsearch.html"><div class="rectangle"></div><div class="sign-up poppins-semi-bold-black-40px">Sign up</div> </a>
+                </div>
+            </div>
         </div>
-        <div class="flex-col-1">
-          <img class="eat-together" src="img/eat-together.jpg" alt="Eat Together" />
-          <!-- Email input field -->
-          <div class="overlap-group3">
-            <input type="email" class="email" placeholder="Email">
-          </div>
-          <!-- Password input field -->
-          <div class="overlap-group">
-            <input type="password" class="password" placeholder="Password">
-          </div>
-          <div class="overlap-group1">
-            <a href="personal-info.html"> <div class="rectangle"></div></a>
-            <div class="log-in-1 poppins-semi-bold-black-40px">Log in</div>
-          </div>
-          <h1 class="title poppins-semi-bold-black-40px">--- Or ---</h1>
-          <div class="overlap-group2">
-            <div class="rectangle"></div>
-            <a href="login.html"><div class="sign-up poppins-semi-bold-black-40px">Sign up</div> </a>
-          </div>
-        </div>
-      </div>
     </div>
-  </body>
+
+    <script>
+        var poolData = {
+            UserPoolId : 'us-east-1_Du0et7LlC', // Your user pool id here
+            ClientId : '7tlmk6mpfvlpgkb4n4jpakci19' // Your client id here
+        };
+        var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
+        function loginUser() {
+            var authenticationData = {
+                Username : document.getElementById('emailInput').value,
+                Password : document.getElementById('passwordInput').value
+            };
+            var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+            var userData = {
+                Username : document.getElementById('emailInput').value,
+                Pool : userPool
+            };
+            var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+
+            cognitoUser.authenticateUser(authenticationDetails, {
+                onSuccess: function (result) {
+                    console.log('access token + ' + result.getAccessToken().getJwtToken());
+                    // Redirect to search.html on successful login
+                    window.location.href = 'search.html';
+                },
+                onFailure: function(err) {
+                    alert("Error: invalid email or password");
+                    console.error('error ' + err);
+                }
+            });
+        }
+    </script>
+</body>
 </html>
