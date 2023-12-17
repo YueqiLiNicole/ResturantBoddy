@@ -1,0 +1,77 @@
+/* Basic Styles */
+body, h1, h2, p {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Layout */
+main {
+  display: flex;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+#basicInfo {
+  width: 50%;
+  padding-right: 20px;
+}
+
+#reviews {
+  width: 50%;
+  padding-left: 20px;
+}
+
+/* Restaurant Image */
+#restaurantImage {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+/* Buttons */
+.button {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+/* Rating and Reviews */
+#restaurantRating, .reviews {
+  margin-bottom: 10px;
+}
+
+/* Right Column */
+#restaurantName {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.favorite-heart {
+  font-size: 2em;
+  cursor: pointer;
+}
+
+/* Favorite Heart Toggle */
+.is-favorited {
+  color: red;
+}
+
+/* User Avatars for Favorited Restaurant */
+.user-avatars img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
