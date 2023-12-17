@@ -250,6 +250,18 @@ function validateFieldName(name) {
 function saveInfo() {
     var body = { userID: userID };
 
+    body.username = originalValues['nameField'];
+    body.phone = originalValues['telField'];
+    body.email = originalValues['emailField'];
+    body.cuisine = originalValues['cuisineField'];
+    body.location = originalValues['locationField'];
+
+    console.log('original:',body.username);
+    console.log(body.phone);
+    console.log(body.email);
+    console.log(body.cuisine);
+    console.log(body.location);
+
     var nameField = document.getElementById('nameField');
     if (nameField.value !== originalValues['nameField']) {
         body.username = nameField.value;
@@ -270,6 +282,12 @@ function saveInfo() {
     if (locationField.value !== originalValues['locationField']) {
         body.location = locationField.value;
     }
+
+    console.log('after validation:',body.username);
+    console.log(body.phone);
+    console.log(body.email);
+    console.log(body.cuisine);
+    console.log(body.location);
 
     // Perform validation
     var validation = validateFields();
