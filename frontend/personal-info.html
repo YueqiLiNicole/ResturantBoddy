@@ -324,15 +324,29 @@
     <!-- JavaScript for Save and Discard functionality -->
     <script>
       console.log(sdk);
+      var tempID;
+      var idToken = localStorage.getItem('idToken');
+      if (idToken) {
+                var userInfo = getUserInfo(idToken);
+                tempID = userInfo['cognito:username'];
+                console.log('User Info:', userInfo); 
+                console.log('Cognito Username:', userInfo['cognito:username']);
+            }
       var username = 'eric';
-      var userID = '20166a12-a014-4c53-af85-732d895faa57';
+      var userID = tempID;
       var buddyID = 'f518fa66-cbe2-49f0-8080-bc0b9652f637';
       var restaurantID = 'XjeGryxde-tQZF_Ewu7NCw';
       var searched_restaurants = [];
 
       var originalValues = {};
       var fields = ["nameField", "telField", "emailField", "cuisineField", "locationField"];
-
+      
+      function getUserInfo(idToken) {
+            var payload = idToken.split('.')[1];
+            var decoded = atob(payload); // Base64 decode
+            var userProfile = JSON.parse(decoded);
+            return userProfile;
+        }
       // Function to store original values
       function storeOriginalValues() {
           fields.forEach(function(field) {
