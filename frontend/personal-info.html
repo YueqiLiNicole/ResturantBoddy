@@ -2,62 +2,224 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
-    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
-    <meta name="viewport" content="width=1440, maximum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
-    <meta name="og:type" content="website" />
-    <meta name="twitter:card" content="photo" />
     <link rel="stylesheet" type="text/css" href="css/personal-info.css" />
     <link rel="stylesheet" type="text/css" href="css/styleguide.css" />
-    <link rel="stylesheet" type="text/css" href="css/globals.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <!-- api gateway generated sdk -->
+    <script src="./js/sdk/lib/axios/dist/axios.standalone.js"></script>
+    <script src="./js/sdk/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script src="./js/sdk/lib/CryptoJS/rollups/sha256.js"></script>
+    <script src="./js/sdk/lib/CryptoJS/components/hmac.js"></script>
+    <script src="./js/sdk/lib/CryptoJS/components/enc-base64.js"></script>
+    <script src="./js/sdk/lib/url-template/url-template.js"></script>
+    <script src="./js/sdk/lib/apiGatewayCore/sigV4Client.js"></script>
+    <script src="./js/sdk/lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script src="./js/sdk/lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script src="./js/sdk/lib/apiGatewayCore/utils.js"></script>
+
+    <script src="./js/sdk/apigClient.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1234.0.js"></script>
+      <script>
+        var sdk = apigClientFactory.newClient({});
+      </script>
+    <style>
+
+    .icon {
+  /* Adjust margin if necessary */
+      margin-right: 10px;
+      align-self: center; /* Align the icon vertically */
+    }
+
+    /* Container for the personal information and dining preference */
+  .personal-dining-info {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: flex-start; /* Align children to the start of the cross axis */
+  }
+
+    /* Make sure icons and inputs align nicely */
+    .field-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px; /* Space between each field group */
+    }
+
+    .editable-field {
+      flex-grow: 1;
+      border: 0px solid #ccc;
+      border-radius: 4px;
+      padding: 8px;
+      font-size: 30px; /* Adjust as needed */
+    }
+      }
+      .button-style {
+          background-color: #4CAF50; /* Green */
+          border: none;
+          color: white;
+          padding: 10px 20px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+          border-radius: 4px;
+      }
+      .discard-button {
+          background-color: #f44336; /* Red */
+      }
+    </style>
   </head>
   <body style="margin: 0; background: #ffffff">
     <input type="hidden" id="anPageName" name="page" value="personal-info" />
     <div class="container-center-horizontal">
       <div class="personal-info screen">
-        <div class="flex-row flex poppins-semi-bold-black-40px">
+        <!-- Existing content up to name -->
+             <div class="flex-row flex poppins-semi-bold-black-40px">
           <div class="home-page poppins-semi-bold-black-40px">Home Page</div>
-          <div class="overlap-group">
-            <div class="rectangle"></div>
-            <div class="edit">Edit</div>
-            <img class="xnix-line-pencil-edit" src="img/xnix-line-pencil-edit-1.svg" alt="Xnix/Line/Pencil Edit" />
-          </div>
-          <div class="overlap-group2">
-            <a href="start.html"> <div class="rectangle"></div></a>
-            <div class="sign-out">Sign out</div>
-          </div>
+          
+            <div class="overlap-group">
+          <div class="rectangle"><a href="personal_edit.html"><img class="xnix-line-pencil-edit" src="img/xnix-line-pencil-edit-1.svg" alt="Edit"/></a></div>
+          <div class="edit">Edit</div>
         </div>
+        <div class="overlap-group2">
+          <a href="start.html">
+            <div class="rectangle"></div>
+            <div class="sign-out">Sign out</div>
+          </a>
+        </div>
+      </div>
+
+
         <div class="flex-col flex">
           <img class="ellipse-2" src="img/ellipse-2.jpg" alt="Ellipse 2" />
           <img class="interface-heart_02" src="img/interface---heart-02-1.svg" alt="Interface / Heart_02" />
-          <h1 class="name">Alex Andrew</h1>
-          <img class="group-3" src="img/group-3@2x.png" alt="Group 3" />
+          <input type="text" id="nameField" class="editable-field name" >
+          
         </div>
-        <div class="flex-col-1 flex-col-3">
-          <img class="personal-information" src="img/personal-information.jpg" alt="Personal Information" />
-          <div class="overlap-group3">
-            <div class="overlap-group1">
-              <img class="dining-preference" src="img/dining-preference.jpg" alt="Dining Preference" />
-              <p class="tel-1-123-456-78">Tel: +1 (123) 456-7890<br />Email: aa1234@columbia.edu</p>
-            </div>
-            <img class="icon-phone" src="img/---icon--phone-.jpg" alt="icon &#34;phone&#34;" />
-            <img class="icon-email-outline" src="img/---icon--email-outline-.jpg" alt="icon &#34;email outline&#34;" />
-          </div>
-        </div>
-        <p class="cuisine-italian-th">Cuisine: Italian, Thai<br />Location: Manhattan, NY</p>
-        <div class="flex-col-2 flex-col-3">
-          <img class="interface-heart_02-1" src="img/interface---heart-02.svg" alt="Interface / Heart_02" />
-          <img class="icon-pin-outline" src="img/---icon--pin-outline-.jpg" alt="icon &#34;pin outline&#34;" />
-        </div>
+        <!-- Phone and Email -->
+
+      <div class="flex-col-1 flex-col-3">
+        <img class="personal-information" src="img/personal-information.jpg" alt="Personal Information" />
+        <img class="dining-preference" src="img/dining-preference.jpg" alt="Dining Preference" />
+        <div class="personal-dining-info">
+      <div class="field-group">
+        <i class="fa-solid fa-phone icon"></i>
+        <input type="text" id="telField" class="editable-field" value="Default Phone">
+      </div>
+      <div class="field-group">
+        <i class="fa-solid fa-envelope icon"></i>
+        <input type="text" id="emailField" class="editable-field" value="aa1234@columbia.edu">
+      </div>
+      </div>
+      <!-- ... other elements ... -->
+    </div>
+
+    <div class="flex-col-2 flex-col-3">
+  <div class="personal-dining-info">
+    <div class="field-group">
+      <i class="fa-solid fa-heart icon"></i>
+      <input type="text" id="cuisineField" class="editable-field" value="Italian, Thai">
+    </div>
+    <div class="field-group">
+      <i class="fa-solid fa-location-dot icon"></i>
+      <input type="text" id="locationField" class="editable-field" value="Manhattan, NY">
+    </div>
+  </div>
+</div>
+
+       <!--  <div class="flex-col-2 flex-col-3">
+           
+              <div class="field-group">
+         <img class="interface-heart_02-1" src="img/interface---heart-02.svg" alt="Interface / Heart_02" />
+        
+            <input type="text" id="cuisineField" class="editable-field" placeholder="Italian, Thai">
+      </div>
+      <div class="field-group">
+        <img class="icon-pin-outline" src="img/---icon--pin-outline-.jpg" alt="icon 'pin outline'" />
+         <input type="text" id="locationField" class="editable-field" placeholder="Manhattan, NY">
+      </div> -->
+              
+
+        <!-- Rest of the existing content -->
         <div class="flex-row-1">
           <img class="image-11" src="img/image-11.png" alt="image 11" />
           <div class="x1-reviews poppins-normal-black-32px">
-            <span class="poppins-normal-black-32px">(</span><span class="span1 poppins-normal-black-32px">1</span
-            ><span class="poppins-normal-black-32px">) reviews</span>
+            <span class="poppins-normal-black-32px">(</span><span class="span1 poppins-normal-black-32px">1</span>
+            <span class="poppins-normal-black-32px">) reviews</span>
           </div>
         </div>
       </div>
     </div>
+    <!-- JavaScript for Save and Discard functionality -->
+    <script>
+      console.log(sdk);
+      var username = 'eric';
+      var userID = '29f78211-2096-41a3-92a7-ee2f35f12747';
+      var buddyID = '948f44b9-f080-48b6-a152-7dbedc8a3ee7';
+      var restaurantID = 'XjeGryxde-tQZF_Ewu7NCw';
+      var searched_restaurants = [];
+
+      var originalValues = {};
+      var fields = ["nameField", "telField", "emailField", "cuisineField", "locationField"];
+
+      // Function to store original values
+      function storeOriginalValues() {
+          fields.forEach(function(field) {
+              originalValues[field] = document.getElementById(field).value;
+          });
+      }
+
+
+function fetchUserInfo() {
+    // Assuming 'userID' is a global variable containing the user's ID
+    var params = {
+        q: userID // The API is expecting a query parameter 'q'
+    };
+    var body = {};
+    var additionalParams = {};
+
+    // Call the getUserByIdGet function from the SDK
+    sdk.getUserByIdGet(params, body, additionalParams)
+        .then(function(response) {
+            // Log the response for debugging
+            console.log('User response:', response);
+
+            // Assuming the relevant user data is in response.data
+            fillUserData(response.data);
+        })
+        .catch(function(error) {
+            // Log any error
+            console.error('Error fetching user data:', error);
+        });
+}
+
+function fillUserData(userData) {
+    // Check if the userData object has the properties you expect
+    // Update the placeholder attributes of the input fields
+    if(userData) {
+        document.getElementById('nameField').value = userData.name || 'Enter Name';
+        document.getElementById('telField').value = userData.phone || 'Enter Phone Number';
+        document.getElementById('emailField').value = userData.email || 'Enter Email';
+        document.getElementById('cuisineField').value = userData.cuisine || 'Enter Favorite Cuisine';
+        document.getElementById('locationField').value = userData.location || 'Enter Location';
+    }
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    storeOriginalValues();
+    fetchUserInfo(); // This will fetch user data and update placeholders
+});
+
+
+
+
+    </script>
   </body>
 </html>

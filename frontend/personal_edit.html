@@ -6,9 +6,27 @@
     <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
     <link rel="stylesheet" type="text/css" href="css/personal-info.css" />
     <link rel="stylesheet" type="text/css" href="css/styleguide.css" />
-    <link rel="stylesheet" type="text/css" href="css/globals.css" />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <!-- api gateway generated sdk -->
+    <script src="./js/sdk/lib/axios/dist/axios.standalone.js"></script>
+    <script src="./js/sdk/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script src="./js/sdk/lib/CryptoJS/rollups/sha256.js"></script>
+    <script src="./js/sdk/lib/CryptoJS/components/hmac.js"></script>
+    <script src="./js/sdk/lib/CryptoJS/components/enc-base64.js"></script>
+    <script src="./js/sdk/lib/url-template/url-template.js"></script>
+    <script src="./js/sdk/lib/apiGatewayCore/sigV4Client.js"></script>
+    <script src="./js/sdk/lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script src="./js/sdk/lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script src="./js/sdk/lib/apiGatewayCore/utils.js"></script>
+
+    <script src="./js/sdk/apigClient.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1234.0.js"></script>
+      <script>
+        var sdk = apigClientFactory.newClient({});
+      </script>
     <style>
 
     .icon {
@@ -65,14 +83,14 @@
              <div class="flex-row flex poppins-semi-bold-black-40px">
           <div class="home-page poppins-semi-bold-black-40px">Home Page</div>
           
-        <div class="overlap-group">
-          <div class="rectangle button-style" onclick="saveInfo()">
+          <div class="overlap-group">
+          <div class="rectangle button-style" id="saveButton"> <!-- Added id here -->
             <div class="edit">Save</div>
             <img class="xnix-line-pencil-edit" src="img/xnix-line-pencil-edit-1.svg" alt="Save" />
           </div>
         </div>
         <div class="overlap-group2">
-          <div class="rectangle button-style discard-button" onclick="discardChanges()">
+          <div class="rectangle button-style discard-button" id="discardButton"> <!-- Added id here -->
             <div class="sign-out">Discard</div>
           </div>
         </div>
@@ -81,7 +99,7 @@
         <div class="flex-col flex">
           <img class="ellipse-2" src="img/ellipse-2.jpg" alt="Ellipse 2" />
           <img class="interface-heart_02" src="img/interface---heart-02-1.svg" alt="Interface / Heart_02" />
-          <input type="text" id="nameField" class="editable-field name" placeholder ="Alex Andrew">
+          <input type="text" id="nameField" class="editable-field name" >
           
         </div>
         <!-- Phone and Email -->
@@ -92,7 +110,7 @@
         <div class="personal-dining-info">
       <div class="field-group">
         <i class="fa-solid fa-phone icon"></i>
-        <input type="text" id="telField" class="editable-field" placeholder="+1 (123) 456-7890">
+        <input type="text" id="telField" class="editable-field" placeholder="Default Phone">
       </div>
       <div class="field-group">
         <i class="fa-solid fa-envelope icon"></i>
@@ -140,6 +158,13 @@
     </div>
     <!-- JavaScript for Save and Discard functionality -->
     <script>
+      console.log(sdk);
+      var username = 'eric';
+      var userID = '29f78211-2096-41a3-92a7-ee2f35f12747';
+      var buddyID = '948f44b9-f080-48b6-a152-7dbedc8a3ee7';
+      var restaurantID = 'XjeGryxde-tQZF_Ewu7NCw';
+      var searched_restaurants = [];
+
       var originalValues = {};
       var fields = ["nameField", "telField", "emailField", "cuisineField", "locationField"];
 
@@ -150,6 +175,7 @@
           });
       }
 
+
 // Helper function to display alert
 function showAlert(message) {
   alert(message);
@@ -157,65 +183,208 @@ function showAlert(message) {
   // event.preventDefault();
 }
 
-// Function to validate phone number
 function validatePhoneNumber(number) {
-  var phonePattern = /^\(\d{3}\)\d{3}-\d{4}$/;
-  return phonePattern.test(number);
+    var phonePattern = /^\(\d{3}\)\d{3}-\d{4}$/;
+    if (phonePattern.test(number)) {
+        return { isValid: true, message: "" };
+    } else {
+        return { isValid: false, message: "Phone number is not in the valid format (xxx)xxx-xxxx." };
+    }
 }
 
-// Function to validate email
 function validateEmail(email) {
-  var emailPattern = /^[^@]+@\w+(\.\w+)+\w$/;
-  return emailPattern.test(email);
+    var emailPattern = /^[^@]+@\w+(\.\w+)+\w$/;
+    if (emailPattern.test(email)) {
+        return { isValid: true, message: "" };
+    } else {
+        return { isValid: false, message: "Email address is not in a valid format." };
+    }
 }
 
-// Function to validate cuisine
 function validateCuisine(cuisine) {
-  var allowedCuisines = ['chinese', 'italian', 'japanese', 'mexican', 'french', 'korean', 'american'];
-  return allowedCuisines.includes(cuisine.toLowerCase());
+    var allowedCuisines = ['chinese', 'italian', 'japanese', 'mexican', 'french', 'korean', 'american','thai'];
+    if (allowedCuisines.includes(cuisine.toLowerCase())) {
+        return { isValid: true, message: "" };
+    } else {
+        return { isValid: false, message: "Cuisine is not recognized. Allowed cuisines are: " + allowedCuisines.join(', ') + "." };
+    }
 }
 
-// Function to validate location
 function validateLocation(location) {
-  var allowedLocations = ['manhattan, ny', 'long island city, ny', 'brooklyn, ny'];
-  return allowedLocations.includes(location.toLowerCase());
+    var allowedLocations = ['manhattan, ny', 'long island city, ny', 'brooklyn, ny'];
+    if (allowedLocations.includes(location.toLowerCase())) {
+        return { isValid: true, message: "" };
+    } else {
+        return { isValid: false, message: "Location is not recognized. Allowed locations are: " + allowedLocations.join(', ') + "." };
+    }
+}
+
+function validateFieldName(name) {
+    // Example validation: ensure the name is not empty and is less than 50 characters
+    if (name.trim() === "" || name.length > 50) {
+        return { isValid: false, message: "Name must be filled and less than 50 characters." };
+    } else {
+        return { isValid: true, message: "" };
+    }
 }
 
 // Function to handle the Save button click event
+// ... rest of your existing HTML and JavaScript ...
+
+// Function to handle the Save button click event
 function saveInfo() {
-  var phoneNumber = document.getElementById('telField').value;
-  var email = document.getElementById('emailField').value;
-  var cuisine = document.getElementById('cuisineField').value;
-  var location = document.getElementById('locationField').value;
+    var body = { userID: userID };
 
-  if (!validatePhoneNumber(phoneNumber)) {
-    showAlert('Please enter a valid phone number in the format (xxx)xxx-xxxx.');
-    return;
-  }
+    var nameField = document.getElementById('nameField');
+    if (nameField.value !== originalValues['nameField']) {
+        body.username = nameField.value;
+    }
+    var phoneField = document.getElementById('telField');
+    if (phoneField.value !== originalValues['telField']) {
+        body.phone = phoneField.value;
+    }
+    var emailField = document.getElementById('emailField');
+    if (emailField.value !== originalValues['emailField']) {
+        body.email = emailField.value;
+    }
+    var cuisineField = document.getElementById('cuisineField');
+    if (cuisineField.value !== originalValues['cuisineField']) {
+        body.cuisine = cuisineField.value;
+    }
+    var locationField = document.getElementById('locationField');
+    if (locationField.value !== originalValues['locationField']) {
+        body.location = locationField.value;
+    }
 
-  if (!validateEmail(email)) {
-    showAlert('Please enter a valid email address.');
-    return;
-  }
+    // Perform validation
+    var validation = validateFields();
+    if (!validation.isValid) {
+        console.log('Validation failed:', validation.messages.join(', '));
+        showAlert('Validation failed: ' + validation.messages.join('\n'));
+        return;
+    }
 
-  if (!validateCuisine(cuisine)) {
-    showAlert('Cuisine should be one of the following: Chinese, Italian, Japanese, Mexican, French, Korean, or American.');
-    return;
-  }
+    if (Object.keys(body).length <= 1) {
+        console.log('No changes made to the form.');
+        return;
+    }
 
-  if (!validateLocation(location)) {
-    showAlert('Location should be one of the following: Manhattan, Long Island City, or Brooklyn, NY.');
-    return;
-  }
-
-  // If all validations pass
-  alert("Information saved!");
-  // Here you would typically send the data to the server
-  // or perform other actions required on save.
+    // Sending the data to the API
+    sdk.editUserPut({}, body, {}).then((response) => {
+        console.log('Edit profile response:', response);
+        alert("Information saved!");
+    }).catch((error) => {
+        console.error('Error:', error);
+        showAlert('There was an error saving the information.');
+    });
 }
 
 
 
+// Add the fetchUserInfo function call inside the DOMContentLoaded listener
+document.addEventListener("DOMContentLoaded", function() {
+    storeOriginalValues();
+    document.getElementById("saveButton").addEventListener("click", saveInfo);
+    document.getElementById("discardButton").addEventListener("click", discardChanges);
+    fetchUserInfo(); // This will fetch user data and update placeholders
+});
+
+
+
+function validateFields() {
+    var validationResults = {
+        isValid: true,
+        messages: []
+    }
+
+    // Validate Phone Number if it has changed
+    var phoneField = document.getElementById('telField');
+    if (phoneField.value !== originalValues['telField']) {
+        var phoneValidation = validatePhoneNumber(phoneField.value);
+        if (!phoneValidation.isValid) {
+            validationResults.isValid = false;
+            validationResults.messages.push(phoneValidation.message);
+        }
+    }
+
+    // Validate Email if it has changed
+    var emailField = document.getElementById('emailField');
+    if (emailField.value !== originalValues['emailField']) {
+        var emailValidation = validateEmail(emailField.value);
+        if (!emailValidation.isValid) {
+            validationResults.isValid = false;
+            validationResults.messages.push(emailValidation.message);
+        }
+    }
+
+    // Add validation checks for other fields like 'cuisine' and 'location'
+    var cuisineField = document.getElementById('cuisineField');
+    if (cuisineField.value !== originalValues['cuisineField']) {
+        var cuisineValidation = validateCuisine(cuisineField.value);
+        if (!cuisineValidation.isValid) {
+            validationResults.isValid = false;
+            validationResults.messages.push(cuisineValidation.message);
+        }
+    }
+
+    var locationField = document.getElementById('locationField');
+    if (locationField.value !== originalValues['locationField']) {
+        var locationValidation = validateLocation(locationField.value);
+        if (!locationValidation.isValid) {
+            validationResults.isValid = false;
+            validationResults.messages.push(locationValidation.message);
+        }
+    }
+
+    return validationResults;
+}
+
+
+
+// Your existing validation functions...
+// validatePhoneNumber, validateEmail, validateCuisine, validateLocation...
+
+// Helper function to display alerts
+function showAlert(message) {
+    alert(message);
+}
+
+
+
+function fetchUserInfo() {
+    // Assuming 'userID' is a global variable containing the user's ID
+    var params = {
+        q: userID // The API is expecting a query parameter 'q'
+    };
+    var body = {};
+    var additionalParams = {};
+
+    // Call the getUserByIdGet function from the SDK
+    sdk.getUserByIdGet(params, body, additionalParams)
+        .then(function(response) {
+            // Log the response for debugging
+            console.log('User response:', response);
+
+            // Assuming the relevant user data is in response.data
+            fillUserData(response.data);
+        })
+        .catch(function(error) {
+            // Log any error
+            console.error('Error fetching user data:', error);
+        });
+}
+
+function fillUserData(userData) {
+    // Check if the userData object has the properties you expect
+    // Update the placeholder attributes of the input fields
+    if(userData) {
+        document.getElementById('nameField').placeholder = userData.name || 'Enter Name';
+        document.getElementById('telField').placeholder = userData.phone || 'Enter Phone Number';
+        document.getElementById('emailField').placeholder = userData.email || 'Enter Email';
+        document.getElementById('cuisineField').placeholder = userData.cuisine || 'Enter Favorite Cuisine';
+        document.getElementById('locationField').placeholder = userData.location || 'Enter Location';
+    }
+}
 
 
       // Function to handle the Discard button
@@ -225,11 +394,45 @@ function saveInfo() {
           });
       }
 
+    // Object to track changes for each field
+var fieldChanges = {
+    nameField: false,
+    telField: false,
+    emailField: false,
+    cuisineField: false,
+    locationField: false
+};
+
+// Function to register a change for a field
+function registerChange(fieldId) {
+    fieldChanges[fieldId] = true;
+}
+
+// Set up event listeners to track changes on each field
+
+
       // Event listeners
       document.addEventListener("DOMContentLoaded", function() {
-          storeOriginalValues();
-          document.getElementById("saveButton").addEventListener("click", saveInfo);
-          document.getElementById("discardButton").addEventListener("click", discardChanges);
+        storeOriginalValues();
+        document.getElementById('nameField').addEventListener('input', function() { registerChange('nameField'); });
+        document.getElementById('telField').addEventListener('input', function() { registerChange('telField'); });
+        document.getElementById('emailField').addEventListener('input', function() { registerChange('emailField'); });
+        document.getElementById('cuisineField').addEventListener('input', function() { registerChange('cuisineField'); });
+        document.getElementById('locationField').addEventListener('input', function() { registerChange('locationField'); });
+        document.getElementById("saveButton").addEventListener("click", saveInfo);
+        document.getElementById("discardButton").addEventListener("click", discardChanges);
+        fetchUserInfo();
+          // // fetchUserData();
+          // const exampleUserData = {
+          //       name: "John Doe",
+          //       phone: "+1 (555) 123-4567",
+          //       email: "john.doe@example.com",
+          //       favoriteCuisine: "Italian",
+          //       location: "New York, NY"
+          //   };
+
+          //   // Call `fillUserData` with the example user data
+          //   fillUserData(exampleUserData);
       });
     </script>
   </body>
