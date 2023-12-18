@@ -64,13 +64,6 @@ $(document).ready(function() {
         });
     });
 
-    // filterButton.addEventListener('click', function () {
-    //     let filtered_restaurants = searched_restaurants.filter(item => item.price == "$$$");
-    //     console.log('Filtered restaurants:', filtered_restaurants);
-    //     displayRestaurants(filtered_restaurants);
-    // });
-
-
     document.getElementById('applyFilterButton').addEventListener('click', function () {
         let priceFilterValue = document.getElementById('priceFilter').value;
         let ratingFilterValue = document.getElementById('ratingFilter').value;
@@ -84,48 +77,6 @@ $(document).ready(function() {
         console.log('Filtered restaurants:', filtered_restaurants);
         displayRestaurants(filtered_restaurants);
     });
-    
-
-    // rateButton.addEventListener('click', function () {
-    //     var body = {
-    //         restaurantID: restaurantID,
-    //         rating: rateInput.value
-    //     };
-    //     sdk.rateRestaurantPost({}, body, {}).then((response) => {
-    //         console.log('Rate response:', response['data']['body']);
-    //     });
-    // });
-
-    // commentButton.addEventListener('click', function () {
-    //     let today = new Date();
-
-    //     // Format the date as 'YYYY-MM-DD'
-    //     let dateString = today.getFullYear() + '-' + 
-    //         ('0' + (today.getMonth() + 1)).slice(-2) + '-' + 
-    //         ('0' + today.getDate()).slice(-2);
-
-    //     var body = {
-    //         restaurantID: restaurantID,
-    //         username: username,
-    //         comment: commentInput.value,
-    //         date: dateString
-    //     };
-    //     sdk.commentRestaurantPost({}, body, {}).then((response) => {
-    //         console.log('Comment response:', response['data']['body']);
-    //     });
-    // });
-
-    // likeButton.addEventListener('click', function () {
-    //     var body = {
-    //         restaurantID: restaurantID,
-    //         userID: userID
-    //     };
-    //     sdk.likeRestaurantPost({}, body, {}).then((response) => {
-    //         console.log('Like response:', response['data']['body']);
-    //     });
-    // });
-
-
 
     function displayRestaurants(restaurants) {
         var restaurantList = document.getElementById('restaurantDisplay');
@@ -136,24 +87,6 @@ $(document).ready(function() {
             restaurantList.appendChild(card);
         });
     }
-
-    // function createRestaurantCard(restaurant) {
-    //     var card = document.createElement('div');
-    //     card.className = 'restaurant-card';
-    
-
-    //     var name = document.createElement('h3');
-    //     name.textContent = restaurant.name;
-    //     card.appendChild(name);
-    
-
-    //     card.onclick = function() {
-
-    //         window.location.href = 'restaurant.html?id=' + restaurant.id;
-    //     };
-    
-    //     return card;
-    // }
     
     
     function createRestaurantCard(restaurant) {
@@ -161,7 +94,11 @@ $(document).ready(function() {
         card.className = 'restaurant-card';
         card.style.cursor = 'pointer';
         card.onclick = function() {
-            window.location.href = 'restaurant.html?id=' + restaurant.id;
+            console.log('restaurant id', restaurant.id, 'user id', tempeID)
+            updateSearchHistory(restaurant.id, tempeID);
+            setTimeout(function() {
+                window.location.href = 'restaurant.html?id=' + restaurant.id;
+            }, 3000); 
         };
     
         var image = document.createElement('img');
@@ -177,6 +114,21 @@ $(document).ready(function() {
         card.appendChild(name);
     
         return card;
+    }
+
+    function updateSearchHistory(restaurantId, userId) {
+        var params = {}; 
+        var body = {
+            restaurantID: restaurantId,
+            userID: userId
+        };
+        var additionalParams = {};
+    
+        sdk.updateSearchHistoryPut(params, body, additionalParams).then(response => {
+            console.log('Search history updated:', response);
+        }).catch(error => {
+            console.error('Error updating search history:', error);
+        });
     }
 
 
