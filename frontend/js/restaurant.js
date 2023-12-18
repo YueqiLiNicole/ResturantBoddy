@@ -352,7 +352,7 @@ document.getElementById('likeButton').addEventListener('click', function () {
         likeButton.src = 'img/heart-1.svg';
 
 
-        document.getElementById('eat-together').classList.remove('eat-together-hidden');
+        document.getElementById('eatTogether').classList.remove('eat-together-hidden');
 
         // Check if 'other_interested_users' exists before trying to use it
         const otherInterestedUsers = response['data']['body']['other_interested_users'];
