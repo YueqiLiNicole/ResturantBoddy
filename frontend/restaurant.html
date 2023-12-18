@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="css/personal-info.css" />
+    <link rel="stylesheet" type="text/css" href="css/styleguide.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <!-- api gateway generated sdk -->
+    <script src="./js/sdk/lib/axios/dist/axios.standalone.js"></script>
+    <script src="./js/sdk/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script src="./js/sdk/lib/CryptoJS/rollups/sha256.js"></script>
+    <script src="./js/sdk/lib/CryptoJS/components/hmac.js"></script>
+    <script src="./js/sdk/lib/CryptoJS/components/enc-base64.js"></script>
+    <script src="./js/sdk/lib/url-template/url-template.js"></script>
+    <script src="./js/sdk/lib/apiGatewayCore/sigV4Client.js"></script>
+    <script src="./js/sdk/lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script src="./js/sdk/lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script src="./js/sdk/lib/apiGatewayCore/utils.js"></script>
+
+    <script src="./js/sdk/apigClient.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1234.0.js"></script>
+      <script>
+        var sdk = apigClientFactory.newClient({});
+      </script>
+
+  <link rel="stylesheet" type="text/css" href="css/restaurant.css" />
+  <link rel="stylesheet" type="text/css" href="css/styleguide.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="css/globals.css" /> -->
+  <link rel="stylesheet" type="text/css" href="css/restaurant-info.css" />
+  <link rel="stylesheet" type="text/css" href="css/personal-info.css" />
+
+  <link rel="stylesheet" type="text/css" href="css/navigator.css" />
+
+</head>
+<body style="margin: 0; background: #ffffff">
+  <input type="hidden" id="anPageName" name="page" value="personal-info" />
+  <div class="container-center-horizontal">
+    <div class="restaurant-info screen">
+      <!-- Existing content up to name -->
+           <div class="flex-row flex poppins-semi-bold-black-40px">
+        <div class="home-page poppins-semi-bold-black-40px">Home Page</div>
+        
+          <div class="overlap-group">
+            <a href="personal-info.html"><img class="xnix-line-pencil-edit" src="img/ellipse-2.jpg" alt="Ellipse 2"/></a>
+      </div>
+
+
+
+
+
+      <div class="flex-col flex">
+        <img class="ellipse-2" id='restaurantImage'/>
+        <img class="interface-heart_02" src="img/interface---heart-02-1.svg" alt="Interface / Heart_02" />
+        <p type="text" id="restaurantName" class="editable-field name" >
+          <!-- <input type="text" id="restaurantName" class="editable-field name" > -->
+        
+      </div>
+
+
+      <div class="flex-col-1 flex-col-3">
+        <div class="restaurant-info-header">
+          <img class="restaurant-information" src="img/restaurant-information.jpg" alt="Restaurant Information" />
+          <img id="likeButton" class="like-icon" src="img/heart.svg" alt="Like" />
+        </div>
+        <img class="eat-together" class="eat-together eat-together-hidden" src="img/eat-together.jpg" alt="Eat Together" />
+
+
+  <div id="likedUsersContainer" class="liked-users"></div>
+
+        <div id="likedUsersContainer" class="liked-users"></div>
+        <div class="personal-dining-info">
+          <div class="field-group">
+            <p type="text" id="restaurantAddress" class="editable-field"></p>
+          </div>
+          <div class="field-group">
+            <p type="text" id="restaurantContact" class="editable-field"></p>
+          </div>
+        </div>
+      </div>
+      
+
+      
+
+
+
+      <div id="reviewsPopup" class="popup" style="display: none;">
+        <div class="reviews-content">
+            <header>Restaurant Reviews</header>
+            <div id="reviewsList" class="reviews-list">
+                <!-- Reviews will be dynamically inserted here -->
+            </div>
+        </div>
+        <button class="button-style" onclick="closeReviewsPopup()">Close</button>
+    </div>
+                  
+    
+            <!-- Rest of the existing content -->
+            <div class="flex-row-1">
+              <div id="ratingStars" class="star-rating"></div>
+             <div class="x1-reviews poppins-normal-black-32px" id="reviewsTrigger">
+              <span class="poppins-normal-black-32px">(</span>
+              <span class="span1 poppins-normal-black-32px" id="numberOfReviews">0</span>
+              <span class="poppins-normal-black-32px">) reviews</span>
+          </div>
+    
+          <!-- Reviews Pop-up -->
+          <div id="reviewsPopup" class="popup" style="display: none;">
+              <div class="reviews-content">
+                  <header>Your Reviews</header>
+                  <div id="reviewsList" class="reviews-list">
+                      <!-- Reviews will be dynamically inserted here -->
+                  </div>
+                  <button class="button-style" onclick="closeReviewsPopup()">Close</button>
+              </div>
+          </div>
+              <div class="button-container">
+                  <button id="rateRestaurantButton" class="button-style">Rate the Restaurant</button>
+                  <button id="writeReviewButton" class="button-style">Write a Review</button>
+    
+              </div>
+    <div id="rateRestaurantPopup" class="popup">
+        <div class="rating-box">
+            <header>How do you like the restaurant?</header>
+            <div class="stars">
+                <i class="fa-solid fa-star" data-value="1"></i>
+                <i class="fa-solid fa-star" data-value="2"></i>
+                <i class="fa-solid fa-star" data-value="3"></i>
+                <i class="fa-solid fa-star" data-value="4"></i>
+                <i class="fa-solid fa-star" data-value="5"></i>
+            </div>
+        </div>
+        <button id="submitRatingButton" class="button-style original-button">Submit Rating</button>
+    </div>
+    <div id="writeReviewPopup" class="popup">
+        <div class="rating-box">
+            <header>Write Your Review</header>
+            <textarea id="reviewText" class="review-textarea" placeholder="Share your experience..."></textarea>
+        </div>
+        <button id="submitReviewButton" class="button-style original-button">Submit Review</button>
+    </div>
+    
+
+
+<!-- <nav class="navbar">
+  <div class="nav-left">
+    <a href="start.html">Home</a>
+  </div>
+  <div class="nav-right">
+      <img src="img/ellipse-2.jpg" alt="User Avatar" id="userAvatar" onclick="location.href='personal-info.html';">
+  </div>
+</nav> -->
+
+
+
+
+
+
+
+
+
+
+
+  <!-- chat js -->
+  <script src="./js/restaurant.js"></script>
+
+
+</body>
+</html>
