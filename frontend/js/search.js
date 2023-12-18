@@ -1,7 +1,44 @@
-var username = 'eric';
-var userID = 'cd2445';
-var restaurantID = 'XjeGryxde-tQZF_Ewu7NCw';
 var searched_restaurants = []
+var sdk = apigClientFactory.newClient({});
+    
+function getUserInfo(idToken) {
+        var payload = idToken.split('.')[1];
+        var decoded = atob(payload); // Base64 decode
+        var userProfile = JSON.parse(decoded);
+        return userProfile;
+    }
+
+    // Function to print tokens and user info to the console
+function printTokensAndUserInfo() {
+    var accessToken = localStorage.getItem('accessToken');
+    var idToken = localStorage.getItem('idToken');
+    var refreshToken = localStorage.getItem('refreshToken');
+
+    // Print tokens to the console
+    console.log('Access Token:', accessToken);
+    console.log('ID Token:', idToken);
+    console.log('Refresh Token:', refreshToken);
+
+    // Get and print user info
+    if (idToken) {
+        var userInfo = getUserInfo(idToken);
+        console.log('User Info:', userInfo);
+        console.log('Cognito Username:', userInfo['cognito:username']);
+    }
+}
+
+// Call printTokensAndUserInfo when the page loads
+window.onload = printTokensAndUserInfo;
+
+
+var idToken = localStorage.getItem('idToken');
+var tempeID;
+var username;
+if (idToken) {
+    var userInfo = getUserInfo(idToken);
+    tempeID = userInfo['cognito:username'];
+}
+
 
 $(document).ready(function() {
     const searchInput = document.getElementById('search-input');
@@ -141,6 +178,26 @@ $(document).ready(function() {
     
         return card;
     }
+
+
+    fetchRecommendedRestaurants();
+
+    function fetchRecommendedRestaurants() {
+        var params = {
+            q: tempeID
+        };
+        var body = {};
+        var additionalParams = {};
+
+        sdk.recommendRestaurantsGet(params, body, additionalParams).then((response) => {
+            console.log('Recommendation response:', response['data']['results']);
+            searched_restaurants = response['data']['results'];
+            displayRestaurants(searched_restaurants);
+        }).catch(error => {
+            console.error('Error fetching recommended restaurants:', error);
+        });
+    }
+
     
     
 });
