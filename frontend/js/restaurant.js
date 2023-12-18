@@ -396,17 +396,15 @@ document.getElementById('likeButton').addEventListener('click', function () {
     };
     sdk.likeRestaurantPost({}, body, {}).then((response) => {
         console.log('Like response:', response['data']['body']);
-        
+
         // Change the heart icon to the filled version
         var likeButton = document.getElementById('likeButton');
         likeButton.src = 'img/heart-1.svg';
 
-
         document.getElementById('eatTogether').classList.remove('eat-together-hidden');
 
-        // Check if 'other_interested_users' exists before trying to use it
-        const otherInterestedUsers = response['data']['body']['other_interested_users'];
-        if (otherInterestedUsers) {
+        if (response['data'] && response['data']['body'] && response['data']['body']['other_interested_users']) {
+            const otherInterestedUsers = response['data']['body']['other_interested_users'];
             // Call a function to update the liked users' avatars
             updateLikedUsersAvatars(otherInterestedUsers);
         } else {
@@ -418,6 +416,7 @@ document.getElementById('likeButton').addEventListener('click', function () {
         // Handle any errors here
     });
 });
+
 
 
 
