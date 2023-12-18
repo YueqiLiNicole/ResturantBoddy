@@ -180,9 +180,36 @@
   height: 50px; 
 }
 
+.user-avatar-container {
+  display: flex; /* This will align all child elements (avatars) in a row */
+  justify-content: start; /* Aligns the avatars to the start of the container */
+  flex-wrap: wrap; /* Allows avatars to wrap to next line if there are too many to fit */
+  gap: 10px; /* Adds space between avatars */
+}
+
+
+.liked-users {
+  display: flex; /* Use flexbox to layout children in a row */
+  flex-wrap: nowrap; /* Prevents the items from wrapping onto new lines */
+  justify-content: flex-start; /* Aligns items to the start of the container */
+  align-items: center; /* Aligns items vertically in the center */
+  gap: 10px; /* Adds space between each avatar */
+  position: relative; /* Add position relative or absolute as needed */
+  z-index: 10;
+  margin-top: -70px;
+}
+
+.user-button img {
+  width: 80px; /* Adjust the size of the avatar */
+  height: 80px; /* Adjust the size of the avatar */
+  border-radius: 50%; /* Makes the avatar circular */
+}
+
 .user-button {
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
+  display: inline-flex; /* Ensures that the button itself is also flexible */
+  align-items: center; /* Aligns the image inside the button vertically */
 }

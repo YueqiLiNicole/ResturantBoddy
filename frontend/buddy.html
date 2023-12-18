@@ -207,7 +207,7 @@
 
 
         <div class="flex-col flex">
-          <img class="ellipse-2" src="img/ellipse@2x.png" alt="Ellipse@2" />
+          <img class="ellipse-2" id='imageField' />
           <img class="interface-heart_02" src="img/interface---heart-02-1.svg" alt="Interface / Heart_02" />
           <input type="text" id="nameField" class="editable-field name" >
           
@@ -318,14 +318,37 @@
     <!-- JavaScript for Save and Discard functionality -->
     <script>
       console.log(sdk);
-      var username = 'xie';
-      var userID = '20166a12-a014-4c53-af85-732d895faa57';
-      var buddyID = 'f518fa66-cbe2-49f0-8080-bc0b9652f637';
-      var restaurantID = 'XjeGryxde-tQZF_Ewu7NCw';
+
+      function getUserInfo(idToken) {
+        var payload = idToken.split('.')[1];
+        var decoded = atob(payload); // Base64 decode
+        var userProfile = JSON.parse(decoded);
+        return userProfile;
+    }
+
+      var username;
+      var idToken = localStorage.getItem('idToken');
+      var tempeID;
+      var username;
+      if (idToken) {
+          var userInfo = getUserInfo(idToken);
+          tempeID = userInfo['cognito:username'];
+      }
+
+      var userID = tempeID;
+
+      sdk.getUserByIdGet({ q: userID }, {}, {}).then(response => {
+          username = response.data.name;
+          console.log('username',username);
+      }).catch(error => {
+          console.error('Error fetching user:', error);
+      });
+
+      var buddyID;
       var searched_restaurants = [];
 
       var originalValues = {};
-      var fields = ["nameField", "telField", "emailField", "cuisineField", "locationField"];
+      var fields = ["imageField", "nameField", "telField", "emailField", "cuisineField", "locationField"];
 
       // Function to store original values
       function storeOriginalValues() {
@@ -333,6 +356,11 @@
               originalValues[field] = document.getElementById(field).value;
           });
       }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        buddyID = urlParams.get('id'); 
+    });
 
 
 function fetchUserInfo() {
@@ -363,6 +391,10 @@ function fillUserData(userData) {
     // Check if the userData object has the properties you expect
     // Update the placeholder attributes of the input fields
     if(userData) {
+          if (userData.imageUrl) {
+            var imageElement = document.getElementById('imageField');
+            imageElement.src = userData.imageUrl;
+        }
         document.getElementById('nameField').value = userData.name || 'Enter Name';
         document.getElementById('telField').value = userData.phone || 'Enter Phone Number';
         document.getElementById('emailField').value = userData.email || 'Enter Email';

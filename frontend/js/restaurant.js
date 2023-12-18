@@ -1,8 +1,16 @@
 // console.log(sdk);
 
-var username = 'xie';
+var idToken = localStorage.getItem('idToken');
+var tempeID;
+var username;
+if (idToken) {
+    var userInfo = getUserInfo(idToken);
+    tempeID = userInfo['cognito:username'];
+}
+
+var userID = tempeID;
+
 var restaurantId;
-var userID = '29f78211-2096-41a3-92a7-ee2f35f12747';
 
 var originalValues = {};
 var fields = [
@@ -15,7 +23,21 @@ var fields = [
     "restaurantPhone"
 ];
 
+sdk.getUserByIdGet({ q: userID }, {}, {}).then(response => {
+    username = response.data.name;
+    console.log('username',username);
+}).catch(error => {
+    console.error('Error fetching user:', error);
+});
 
+
+
+function getUserInfo(idToken) {
+    var payload = idToken.split('.')[1];
+    var decoded = atob(payload); // Base64 decode
+    var userProfile = JSON.parse(decoded);
+    return userProfile;
+}
 // Function to store original values
 function storeOriginalValues() {
     fields.forEach(function(field) {
@@ -54,13 +76,41 @@ function getRestaurantDetails(restaurantId) {
 
     sdk.getRestaurantByIdGet(params, body, additionalParams).then((response) => {
         console.log('Restaurant response:', response);
-        // displayRestaurantDetails(response.data);
         fillRestaurantData(response.data);
         displayRating(response.data.rating);
+
+        // Now pass the interested users to updateUIForInterestedUser
+        const interestedUsers = response.data.interestedUsers;
+        checkCurrentUserInterest(interestedUsers, userID);
+
     }).catch(error => {
         console.error('Error fetching restaurant details:', error);
     });
 }
+
+function checkCurrentUserInterest(interestedUsers, userId) {
+    if (interestedUsers && interestedUsers.includes(userId)) {
+        console.log('yes, included the current user. ')
+        updateUIForInterestedUser(interestedUsers);
+    }
+}
+
+function updateUIForInterestedUser(otherInterestedUsers) {
+    var likeButton = document.getElementById('likeButton');
+    likeButton.src = 'img/heart-1.svg'; // Assuming 'heart-filled.svg' is the filled heart icon
+    document.getElementById('eatTogether').classList.remove('eat-together-hidden');
+
+    if (otherInterestedUsers) {
+        // Call a function to update the liked users' avatars
+        updateLikedUsersAvatars(otherInterestedUsers);
+    } else {
+        // Handle the case where there are no other interested users
+        console.log('No other interested users.');
+    }
+}
+
+
+
 
 
 
@@ -372,40 +422,47 @@ document.getElementById('likeButton').addEventListener('click', function () {
 
 
 function updateLikedUsersAvatars(likedUsers) {
-
-    console.log('likedUsers',likedUsers)
+    console.log('likedUsers', likedUsers);
     const container = document.getElementById('likedUsersContainer');
     container.innerHTML = '';
 
+    if (likedUsers.length > 10) {
+        likedUsers = likedUsers.sort(() => 0.5 - Math.random()).slice(0, 10);
+    }
+
     likedUsers.forEach(userId => {
-        var params = {
-            q: userId
-        };
-        var body = {};
-        var additionalParams = {};
-        sdk.getUserByIdGet(params, body, additionalParams).then((response) => {
-            console.log('User response:', response);
-            const userData = response.data;
-
-            const userButton = document.createElement('button');
-            userButton.className = 'user-button'; 
-            userButton.onclick = function() {
-                // edit here for accessing specific user page
-                window.location.href = 'buddy.html'; 
+        if (userId !== userID) {
+            var params = {
+                q: userId
             };
+            var body = {};
+            var additionalParams = {};
 
-            const img = document.createElement('img');
-            img.src = userData.imageUrl;
-            img.alt = userData.name;
-            img.className = 'liked-user-avatar';
+            sdk.getUserByIdGet(params, body, additionalParams).then((response) => {
+                console.log('User response:', response);
+                const userData = response.data;
 
-            userButton.appendChild(img); 
-            container.appendChild(userButton); 
-        }).catch(function(error) {
-            console.error('Error fetching user data:', error);
-        });
+                const userButton = document.createElement('button');
+                userButton.className = 'user-button';
+                userButton.onclick = function() {
+                    window.location.href = 'buddy.html?id=' + userData.id;
+                };
+
+                const img = document.createElement('img');
+                img.src = userData.imageUrl;
+                img.alt = userData.name;
+                img.className = 'liked-user-avatar';
+
+                userButton.appendChild(img);
+                container.appendChild(userButton);
+            }).catch(function(error) {
+                console.error('Error fetching user data:', error);
+            });
+        }
     });
 }
+
+
 
 
 
