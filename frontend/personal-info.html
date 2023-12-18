@@ -234,8 +234,7 @@
       <div class="personal-info screen">
         <!-- Existing content up to name -->
              <div class="flex-row flex poppins-semi-bold-black-40px">
-          <a href="search.html" class="home-page poppins-semi-bold-black-40px">Home Page</a>
-          
+                <a href="search.html" style="text-decoration: none; color: inherit;">Home Page</a>
             <div class="overlap-group">
           <div class="rectangle"><a href="personal_edit.html"><img class="xnix-line-pencil-edit" src="img/xnix-line-pencil-edit-1.svg" alt="Edit"/></a></div>
           <div class="edit">Edit</div>
@@ -251,7 +250,7 @@
 
 
         <div class="flex-col flex">
-          <img class="ellipse-2" src="img/ellipse-2.jpg" alt="Ellipse 2" />
+          <img class="ellipse-2" id='imageField' />
           <img class="interface-heart_02" src="img/interface---heart-02-1.svg" alt="Interface / Heart_02" />
           <input type="text" id="nameField" class="editable-field name" >
           
@@ -339,7 +338,7 @@
       var searched_restaurants = [];
 
       var originalValues = {};
-      var fields = ["nameField", "telField", "emailField", "cuisineField", "locationField"];
+      var fields = ["imageField", "nameField", "telField", "emailField", "cuisineField", "locationField"];
       
       function getUserInfo(idToken) {
             var payload = idToken.split('.')[1];
@@ -384,6 +383,10 @@ function fillUserData(userData) {
     // Check if the userData object has the properties you expect
     // Update the placeholder attributes of the input fields
     if(userData) {
+      if (userData.imageUrl) {
+        var imageElement = document.getElementById('imageField');
+        imageElement.src = userData.imageUrl;
+    }
         document.getElementById('nameField').value = userData.name || 'Enter Name';
         document.getElementById('telField').value = userData.phone || 'Enter Phone Number';
         document.getElementById('emailField').value = userData.email || 'Enter Email';
